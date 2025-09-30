@@ -29,7 +29,12 @@ def get_current_price(ticker):
         return None
 
 # Main title
-st.badge('Derivio')
+st.markdown("""
+<div style="margin-bottom: 0px;">
+    <span style="font-size:14px; background-color:#E0E0E0; padding:4px 8px; border-radius:4px;">Derivio</span>
+</div>
+""", unsafe_allow_html=True)
+
 st.title('Option pricing')
 
 # User selected model from sidebar 
