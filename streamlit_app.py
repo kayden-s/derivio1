@@ -29,7 +29,7 @@ def get_current_price(ticker):
         return None
 
 # Main title
-st.caption('Derivio')
+st.body('Derivio')
 st.title('Option pricing')
 
 # User selected model from sidebar 
