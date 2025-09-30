@@ -29,13 +29,7 @@ def get_current_price(ticker):
         return None
 
 # Main title
-st.markdown("""
-<div style="margin-bottom: -10px;">
-    <span style="font-size:14px; background-color:#E0E0E0; padding:4px 8px; border-radius:4px;">Derivio</span>
-</div>
-""", unsafe_allow_html=True)
-
-st.title('Option pricing')
+st.title('Derivio Option Pricing')
 
 # User selected model from sidebar 
 pricing_method = st.sidebar.radio('Please select option pricing method', options=[model.value for model in OPTION_PRICING_MODEL])
