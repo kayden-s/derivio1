@@ -79,23 +79,25 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                 data = get_historical_data(ticker)
 
             if data is not None and not data.empty:
-                st.write("Data fetched successfully:")
-                st.write(data.tail())
-
-                st.subheader(f'Call option price: {call_option_price:.2f}')
-                st.subheader(f'Put option price: {put_option_price:.2f}')
-                
-                fig = Ticker.plot_data(data, ticker, 'Close')
-                st.pyplot(fig)
-
                 spot_price = Ticker.get_last_price(data, 'Close')
                 risk_free_rate = risk_free_rate / 100
                 sigma = sigma / 100
                 days_to_maturity = (exercise_date - datetime.now().date()).days
-
+            
                 BSM = BlackScholesModel(spot_price, strike_price, days_to_maturity, risk_free_rate, sigma)
                 call_option_price = BSM.calculate_option_price('Call Option')
                 put_option_price = BSM.calculate_option_price('Put Option')
+            
+                # Move results to the top
+                st.subheader(f'Call option price: {call_option_price:.2f}')
+                st.subheader(f'Put option price: {put_option_price:.2f}')
+            
+                # Then show supporting data and plots
+                st.write("Data fetched successfully:")
+                st.write(data.tail())
+            
+                fig = Ticker.plot_data(data, ticker, 'Close')
+                st.pyplot(fig)
                 
             else:
                 st.error("Unable to proceed with calculations due to data fetching error.")
