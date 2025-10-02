@@ -88,7 +88,7 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                 call_option_price = BSM.calculate_option_price('Call Option')
                 put_option_price = BSM.calculate_option_price('Put Option')
             
-                sst.markdown(
+                st.markdown(
                     """
                     <style>
                     div[data-testid="stMetricValue"] {
