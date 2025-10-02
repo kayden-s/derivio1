@@ -129,7 +129,10 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                 with col2:
                     st.metric("Put Option Price", f"${put_option_price:.2f}")
                 
-                st.markdown("---")
+                st.markdown(
+                    '<hr style="margin-top:10px; margin-bottom:10px; border:1px solid #ccc;">',
+                    unsafe_allow_html=True
+                )
             
                 st.write("Data fetched successfully:")
                 st.write(data.tail())
