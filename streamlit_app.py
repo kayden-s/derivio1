@@ -32,7 +32,7 @@ def get_current_price(ticker):
 # Custom formatted subheader for "Derivio"
 st.markdown(
     """
-    <div style="font-family: 'Arial', sans-serif; color: #2E86C1; font-size: 2rem; font-weight: 700; margin-bottom: 0;">
+    <div style="font-size: 2rem; font-weight: 700; margin-bottom: 0;">
         Derivio
     </div>
     """,
