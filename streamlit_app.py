@@ -88,11 +88,11 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                 call_option_price = BSM.calculate_option_price('Call Option')
                 put_option_price = BSM.calculate_option_price('Put Option')
             
-                # Move results to the top
                 st.subheader(f'Call option price: {call_option_price:.2f}')
                 st.subheader(f'Put option price: {put_option_price:.2f}')
+
+                st.markdown("---")
             
-                # Then show supporting data and plots
                 st.write("Data fetched successfully:")
                 st.write(data.tail())
             
