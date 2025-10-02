@@ -49,6 +49,18 @@ pricing_method = st.sidebar.radio('Please select option pricing method', options
 st.subheader(f'Pricing method: {pricing_method}')
 
 if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
+    # Make text input visually uppercase and ensure stored value is uppercase
+    st.markdown(
+        """
+        <style>
+        [data-testid="stTextInput"] input {
+            text-transform: uppercase;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+    
     # Parameters for Black-Scholes model
     ticker = st.text_input('Ticker symbol', 'AAPL')
     ticker = ticker.upper()
