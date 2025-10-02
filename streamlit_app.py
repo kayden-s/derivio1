@@ -165,8 +165,8 @@ elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
                 MC = MonteCarloPricing(spot_price, strike_price, days_to_maturity, risk_free_rate, sigma, number_of_simulations)
                 MC.simulate_prices()
 
-                MC.plot_simulation_results(num_of_movements)
-                st.pyplot()
+                fig = MC.plot_simulation_results(num_of_movements)
+                st.pyplot(fig)
 
                 call_option_price = MC.calculate_option_price('Call Option')
                 put_option_price = MC.calculate_option_price('Put Option')
