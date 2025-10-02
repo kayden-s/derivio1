@@ -32,11 +32,11 @@ def get_current_price(ticker):
 # Main title
 st.markdown(
     """
-    <div style="font-family: 'Arial', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: -10px;">
-        Derivio
-    </div>
     <div style="font-family: 'Arial', sans-serif; font-size: 2.5rem; font-weight: 600; margin-bottom: 20px;">
-        Option Pricing
+        Option Pricing Calculator
+    </div>
+    <div style="font-family: 'Arial', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: -10px;">
+        Derivio
     </div>
     """,
     unsafe_allow_html=True
