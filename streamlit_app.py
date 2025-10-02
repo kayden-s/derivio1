@@ -176,6 +176,7 @@ elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
     num_of_movements = st.slider('Number of price movement simulations to be visualized ', 0, int(number_of_simulations/10), 100)
     st.caption("The number of simulated price paths to display on the graph")
 
+    st.markdown("<div style='margin-top:20px;'></div>", unsafe_allow_html=True)
     if st.button(f'Calculate option price for {ticker}'):
         try:
             with st.spinner('Fetching data...'):
@@ -270,6 +271,7 @@ elif pricing_method == OPTION_PRICING_MODEL.BINOMIAL.value:
     number_of_time_steps = st.slider('Number of time steps', 5000, 100000, 15000)
     st.caption("The number of periods in the binomial tree. More steps increase accuracy but take longer to compute.")
 
+    st.markdown("<div style='margin-top:20px;'></div>", unsafe_allow_html=True)
     if st.button(f'Calculate option price for {ticker}'):
         try:
             with st.spinner('Fetching data...'):
