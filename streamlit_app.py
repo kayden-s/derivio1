@@ -29,18 +29,17 @@ def get_current_price(ticker):
         st.error(f"Error fetching current price for {ticker}: {str(e)}")
         return None
 
-# Custom formatted subheader for "Derivio"
 st.markdown(
     """
-    <div style="font-size: 2rem; font-weight: 700; margin-bottom: 0;">
+    <div style="font-family: font-size: 2rem; font-weight: 700; margin-bottom: 0;">
         Derivio
+    </div>
+    <div style="font-family: font-size: 2.5rem; font-weight: 600; margin-top: 0.2rem; margin-bottom: 20px;">
+        Option Pricing
     </div>
     """,
     unsafe_allow_html=True
 )
-
-# Main title below it
-st.title("Option Pricing")
 
 # User selected model from sidebar 
 pricing_method = st.sidebar.radio('Please select option pricing method', options=[model.value for model in OPTION_PRICING_MODEL])
