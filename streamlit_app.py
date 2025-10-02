@@ -92,6 +92,9 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                 BSM = BlackScholesModel(spot_price, strike_price, days_to_maturity, risk_free_rate, sigma)
                 call_option_price = BSM.calculate_option_price('Call Option')
                 put_option_price = BSM.calculate_option_price('Put Option')
+
+                st.subheader(f'Call option price: {call_option_price:.2f}')
+                st.subheader(f'Put option price: {put_option_price:.2f}')
                 
             else:
                 st.error("Unable to proceed with calculations due to data fetching error.")
