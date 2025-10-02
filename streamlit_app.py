@@ -96,7 +96,7 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                         font-weight: 700;
                     }
                     [data-testid="stMetricLabel"] {
-                        font-size: 1rem;
+                        font-size: 2rem;
                         font-weight: 600;
                     }
                     </style>
