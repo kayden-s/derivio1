@@ -93,7 +93,7 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                     """
                     <style>
                     [data-testid="stMetricValue"] {
-                        font-size: 1.3rem;
+                        font-size: 2rem;
                         font-weight: 700;
                     }
                     [data-testid="stMetricLabel"] {
@@ -105,7 +105,7 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                 )
                 
                 # Call & Put Option Prices (left aligned, compact)
-                col1, col2, spacer = st.columns([1, 1, 4])
+                col1, col2, spacer = st.columns([1, 1, 2])
                 
                 with col1:
                     st.metric("Call Option Price", f"${call_option_price:.2f}")
