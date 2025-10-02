@@ -67,7 +67,7 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
     risk_free_rate = st.slider('Risk-free rate (%)', 0, 100, 5)
     st.caption("The theoretical rate of return of an investment with zero risk. Usually based on government bonds. 0% means no risk-free return, 100% means doubling your money risk-free (unrealistic).")
 
-    sigma = st.slider('Sigma (Volatility) (%)', 0, 100, 40)
+    sigma = st.slider('Sigma (Volatility) (%)', 0, 100, 20)
     st.caption("A measure of the stock's price variability. Higher values indicate more volatile stocks. 0% means no volatility (unrealistic), 100% means extremely volatile.")
 
     exercise_date = st.date_input('Exercise date', min_value=datetime.today() + timedelta(days=1), value=datetime.today() + timedelta(days=365))
@@ -161,7 +161,7 @@ elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
         strike_price = st.number_input('Strike price', min_value=0.01, value=100.0, step=0.01)
         st.caption("The price at which the option can be exercised. Enter a valid ticker to see a suggested range.")
 
-    risk_free_rate = st.slider('Risk-free rate (%)', 0, 100, 10)
+    risk_free_rate = st.slider('Risk-free rate (%)', 0, 100, 5)
     st.caption("The theoretical rate of return of an investment with zero risk. Usually based on government bonds. 0% means no risk-free return, 100% means doubling your money risk-free (unrealistic).")
 
     sigma = st.slider('Sigma (Volatility) (%)', 0, 100, 20)
@@ -269,7 +269,7 @@ elif pricing_method == OPTION_PRICING_MODEL.BINOMIAL.value:
         strike_price = st.number_input('Strike price', min_value=0.01, value=100.0, step=0.01)
         st.caption("The price at which the option can be exercised. Enter a valid ticker to see a suggested range.")
 
-    risk_free_rate = st.slider('Risk-free rate (%)', 0, 100, 10)
+    risk_free_rate = st.slider('Risk-free rate (%)', 0, 100, 5)
     st.caption("The theoretical rate of return of an investment with zero risk. Usually based on government bonds. 0% means no risk-free return, 100% means doubling your money risk-free (unrealistic).")
 
     sigma = st.slider('Sigma (Volatility) (%)', 0, 100, 20)
