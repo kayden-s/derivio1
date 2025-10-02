@@ -103,7 +103,7 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                     unsafe_allow_html=True
                 )
                 
-                col1, col2 = st.columns([1, 0.9])
+                spacer1, col1, col2, spacer2 = st.columns([2, 1, 1, 2])
                 with col1:
                     st.metric("Call Option Price", f"${call_option_price:.2f}")
                 with col2:
