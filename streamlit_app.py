@@ -15,13 +15,13 @@ st.markdown(
     footer {visibility: hidden;}
     header {visibility: hidden;}
 
-    /* Hide everything in the main body */
-    .block-container {
+    /* Hide the main content area (center of the page) */
+    section[data-testid="stMain"] {
         display: none;
     }
 
-    /* Keep sidebar visible */
-    [data-testid="stSidebar"] .block-container {
+    /* Keep the sidebar visible */
+    section[data-testid="stSidebar"] {
         display: block !important;
     }
     </style>
