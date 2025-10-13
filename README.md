@@ -1,33 +1,37 @@
-# Option Pricing Models
+# Derivio
 
-## Introduction
-This repository contains a simple web app for calculating option prices using three different methods:
+**Derivio** is a web platform for pricing financial options using three quantitative methods:  
+**Black-Scholes, Monte Carlo Simulation, and the Binomial Model.**  
+The app fetches data for **105,000+ stocks** and provides an interactive interface for analysis and comparison.
 
-1. Black-Scholes model
-2. Monte Carlo simulation 
-3. Binomial model
+---
 
-The app is implemented in Python 3.9 and uses the Streamlit library for visualization.
+## Overview
+Derivio enables users to compute theoretical option prices for both call and put options under various assumptions and market conditions.  
+It’s implemented in **Python 3.9** and built with **Streamlit** for an intuitive, browser-based experience.
 
-## Option Pricing Methods
+---
+
+## Implemented Models
 
 ### 1. Black-Scholes Model
-A mathematical model used to calculate the theoretical price of European-style options, based on factors like current stock price, strike price, time to expiration, risk-free rate, and volatility.
+A closed-form solution for **European options**, based on stock price, strike price, time to maturity, risk-free rate, and volatility.
 
 ### 2. Monte Carlo Simulation
-A probabilistic method that uses random sampling to estimate option prices by simulating multiple possible price paths of the underlying asset.
+A **stochastic simulation** technique that generates thousands of possible price paths to estimate an option’s expected payoff.
 
 ### 3. Binomial Model
-A discrete-time model that represents the evolution of the underlying asset's price as a binomial tree, allowing for the calculation of option prices at different time steps.
+A **discrete-time framework** that models the underlying price as a binomial tree, calculating option values step by step until expiration.
 
-## Features
+---
 
-- Fetches latest stock price data from Yahoo Finance API using pandas-datareader
-- Caches data using requests-cache to avoid duplicate API calls
-- Allows users to input various parameters:
-  - Strike price
-  - Risk-free rate (%)
-  - Sigma (Volatility) (%)
-  - Exercise date
-- Calculates option prices based on user inputs
-- Provides a user-friendly interface for testing different scenarios
+## ⚙️ Features
+- Fetches **live market data** for over **105,000 stocks** via the Yahoo Finance API (`pandas-datareader`)
+- **Caches** API calls using `requests-cache` for faster performance  
+- Customizable user inputs:
+  - Strike price  
+  - Risk-free rate (%)  
+  - Volatility (σ, %)  
+  - Expiration date  
+- Computes prices across all three models  
+- **Visualizes** outputs in real time through an interactive Streamlit dashboard  
