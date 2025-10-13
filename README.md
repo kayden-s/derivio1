@@ -1,7 +1,7 @@
 # Option Pricing Models
 
 ## Introduction
-This repository contains a simple web app for calculating European option prices using three different methods:
+This repository contains a simple web app for calculating option prices using three different methods:
 
 1. Black-Scholes model
 2. Monte Carlo simulation 
