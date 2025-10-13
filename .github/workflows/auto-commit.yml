@@ -1,8 +1,5 @@
 name: Auto Empty Commit
 
-permissions:
-  contents: write
-
 on:
   schedule:
     - cron: "0 */10 * * *"
@@ -12,18 +9,16 @@ jobs:
   commit:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: true
+          token: ${{ secrets.PAT }}
 
-      - name: Configure git
-        run: |
+      - run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Create empty commit and push
-        run: |
+      - run: |
           git commit --allow-empty -m "Automated empty commit: $(date -u)"
           git push origin HEAD:main
