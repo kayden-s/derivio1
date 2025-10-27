@@ -42,35 +42,30 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Hide Streamlit hamburger menu, footer, and GitHub fork — keep sidebar toggle visible
+# Clean UI: remove Streamlit menu, footer, GitHub fork, and stToolbarActionButton — keep sidebar toggle
 st.markdown(
     """
     <style>
     /* Hide Streamlit hamburger menu */
-    #MainMenu {visibility: hidden;}
+    #MainMenu {visibility: hidden !important;}
 
-    /* Hide footer */
-    footer {visibility: hidden;}
+    /* Hide footer text */
+    footer {visibility: hidden !important;}
 
-    /* Remove only the GitHub fork button (not the sidebar toggle) */
-    [data-testid="stToolbar"] button[title="View source on GitHub"] {
+    /* Hide any GitHub or Fork-related elements in the toolbar */
+    [data-testid="stToolbar"] a[href*="github.com"],
+    [data-testid="stToolbar"] svg,
+    [data-testid="stToolbar"] span:has(svg),
+    [data-testid="stToolbarActionButton"] {
         display: none !important;
-    }
-    [data-testid="stToolbar"] a[href*="github.com"] {
-        display: none !important;
-    }
-    [data-testid="stToolbar"] svg {
-        display: none !important;
-    }
-    [data-testid="stToolbar"] span:has(svg) {
-        display: none !important;
+        visibility: hidden !important;
     }
 
-    /* Keep sidebar toggle (arrow) visible */
-    [data-testid="collapsedControl"] {visibility: visible !important;}
-
-    /* Hide top color decoration bar */
+    /* Hide possible colored bar decoration */
     div[data-testid="stDecoration"] {visibility: hidden !important;}
+
+    /* Keep sidebar toggle arrows visible */
+    [data-testid="collapsedControl"] {visibility: visible !important;}
     </style>
     """,
     unsafe_allow_html=True
