@@ -42,24 +42,20 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Hide Streamlit default sidebar menu and footer
+# Hide Streamlit hamburger menu and footer (but keep sidebar visible)
 st.markdown(
     """
     <style>
-    [data-testid="stSidebarNav"] {display: none;}
-    footer {visibility: hidden;}
     #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
     </style>
     """,
     unsafe_allow_html=True
 )
 
 # Show pricing method selection in main content instead of sidebar
-pricing_method = st.radio(
-    'Select Option Pricing Method',
-    options=[model.value for model in OPTION_PRICING_MODEL],
-    horizontal=True,
-)
+pricing_method = st.sidebar.radio('Select Option Pricing Method', options=[model.value for model in OPTION_PRICING_MODEL])
+
 
 # Displaying specified model
 st.subheader(f'Pricing Method: {pricing_method}')
