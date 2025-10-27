@@ -154,9 +154,9 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                 st.pyplot(fig)
                 
             else:
-                st.error("Calculation Aborted: Unable to Fetch Required Data.")
+                st.error("Unable to proceed with calculations due to data fetching error.")
         except Exception as e:
-            st.error(f"Calculation Failed: {str(e)}")
+            st.error(f"Error during calculation: {str(e)}")
 
 elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
     # Make text uppercase
