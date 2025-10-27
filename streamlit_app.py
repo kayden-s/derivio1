@@ -42,24 +42,24 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Hide Streamlit hamburger menu, footer, and GitHub fork — but keep sidebar toggle
+# Hide Streamlit menu, footer, and GitHub fork — keep sidebar toggle
 st.markdown(
     """
     <style>
-    /* Hide the main Streamlit menu (☰) */
+    /* Hide the main Streamlit hamburger menu (☰) */
     #MainMenu {visibility: hidden;}
 
-    /* Hide footer text */
+    /* Hide the footer text */
     footer {visibility: hidden;}
 
-    /* Hide GitHub fork / toolbar button */
-    [data-testid="stToolbar"] {visibility: hidden !important;}
+    /* Keep the toolbar visible (so sidebar arrows remain),
+       but hide only the GitHub fork button inside it */
+    [data-testid="stToolbar"] a[href*="github.com"] {
+        visibility: hidden !important;
+    }
 
-    /* Hide possible decorative elements (e.g. colored bar) */
+    /* Remove decorative Streamlit color bar */
     div[data-testid="stDecoration"] {visibility: hidden !important;}
-
-    /* Keep sidebar toggle visible */
-    [data-testid="collapsedControl"] {visibility: visible !important;}
     </style>
     """,
     unsafe_allow_html=True
