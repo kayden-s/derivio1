@@ -149,9 +149,6 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
             
                 st.write("Data Fetched Successfully")
                 st.write(data.tail())
-            
-                fig = Ticker.plot_data(data, ticker, 'Close')
-                st.pyplot(fig)
                 
             else:
                 st.error("Unable to proceed with calculations due to data fetching error.")
