@@ -147,16 +147,16 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                     unsafe_allow_html=True
                 )
             
-                st.write("Data fetched successfully:")
+                st.write("Data Fetched Successfully")
                 st.write(data.tail())
             
                 fig = Ticker.plot_data(data, ticker, 'Close')
                 st.pyplot(fig)
                 
             else:
-                st.error("Unable to proceed with calculations due to data fetching error.")
+                st.error("Calculation Aborted: Unable to Fetch Required Data.")
         except Exception as e:
-            st.error(f"Error during calculation: {str(e)}")
+            st.error(f"Calculation Failed: {str(e)}")
 
 elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
     # Make text uppercase
