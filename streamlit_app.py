@@ -6,6 +6,11 @@ from option_pricing import BlackScholesModel, MonteCarloPricing, BinomialTreeMod
 import matplotlib.pyplot as plt
 import json
 
+
+st.set_page_config(
+    page_title="Derivio",
+)
+
 class OPTION_PRICING_MODEL(Enum):
     BLACK_SCHOLES = 'Black-Scholes Model'
     MONTE_CARLO = 'Monte Carlo Simulation'
