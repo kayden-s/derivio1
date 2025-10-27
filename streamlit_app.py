@@ -42,353 +42,183 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# User selected model from sidebar 
-pricing_method = st.sidebar.radio('Please select option pricing method', options=[model.value for model in OPTION_PRICING_MODEL])
-
-# Displaying specified model
+# Sidebar model selector
+pricing_method = st.sidebar.radio('Pricing method', options=[model.value for model in OPTION_PRICING_MODEL])
 st.subheader(f'Pricing method: {pricing_method}')
 
-if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
-    # Make text uppercase
-    st.markdown(
-        """
-        <style>
-        [data-testid="stTextInput"] input {
-            text-transform: uppercase;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-    
-    # Parameters for Black-Scholes model
-    ticker = st.text_input('Ticker symbol', 'AAPL')
-    ticker = ticker.upper()
-    st.caption("Enter the stock symbol (e.g., AAPL for Apple Inc.)")
+# --- Shared styling for uppercase ticker input ---
+st.markdown(
+    """
+    <style>
+    [data-testid="stTextInput"] input {
+        text-transform: uppercase;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-    # Fetch current price
+def render_common_inputs(model_name):
+    """Render common UI inputs across pricing models."""
+    ticker = st.text_input('Ticker Symbol', 'AAPL')
+    ticker = ticker.upper()
+    st.caption("Enter stock symbol (e.g., AAPL for Apple Inc.).")
+
     current_price = get_current_price(ticker)
-    
     if current_price is not None:
-        st.write(f"Current price of {ticker}: ${current_price:.2f}")
-        
-        # Set default and min/max values based on current price
+        st.write(f"**Current Price:** ${current_price:.2f}")
+
         default_strike = round(current_price, 2)
         min_strike = max(0.1, round(current_price * 0.5, 2))
         max_strike = round(current_price * 2, 2)
-        
-        strike_price = st.number_input('Strike price', 
-                                       min_value=min_strike, 
-                                       max_value=max_strike, 
-                                       value=default_strike, 
-                                       step=0.01)
-        st.caption(f"The price at which the option can be exercised. Range: \${min_strike:.2f} to \${max_strike:.2f}")
+
+        strike_price = st.number_input(
+            'Strike Price',
+            min_value=min_strike,
+            max_value=max_strike,
+            value=default_strike,
+            step=0.01
+        )
+        st.caption(f"Price to exercise the option. *(Range: ${min_strike:.2f}–${max_strike:.2f})*")
     else:
-        strike_price = st.number_input('Strike price', min_value=0.01, value=100.0, step=0.01)
-        st.caption("The price at which the option can be exercised. Enter a valid ticker to see a suggested range.")
+        strike_price = st.number_input('Strike Price', min_value=0.01, value=100.0, step=0.01)
+        st.caption("Price to exercise the option. Enter a valid ticker to view a suggested range.")
 
-    risk_free_rate = st.slider('Risk-free rate (%)', 0, 100, 5)
-    st.caption("The theoretical rate of return of an investment with zero risk. Usually based on government bonds. 0% means no risk-free return, 100% means doubling your money risk-free (unrealistic).")
+    risk_free_rate = st.slider('Risk-Free Rate (%)', 0, 100, 5)
+    st.caption("Annual return of a zero-risk investment, typically based on government bonds. *(0% = no return, 100% = double your money risk-free — unrealistic)*")
 
-    sigma = st.slider('Sigma (Volatility) (%)', 0, 100, 20)
-    st.caption("A measure of the stock's price variability. Higher values indicate more volatile stocks. 0% means no volatility (unrealistic), 100% means extremely volatile.")
+    sigma = st.slider('Volatility (σ) (%)', 0, 100, 20)
+    st.caption("Expected variability of the stock’s price. *(0% = no volatility, 100% = extremely volatile)*")
 
-    exercise_date = st.date_input('Exercise date', min_value=datetime.today() + timedelta(days=1), value=datetime.today() + timedelta(days=365))
-    st.caption("The date when the option can be exercised")
+    exercise_date = st.date_input(
+        'Exercise Date',
+        min_value=datetime.today() + timedelta(days=1),
+        value=datetime.today() + timedelta(days=365)
+    )
+    st.caption("Date when the option can be exercised.")
+
+    return ticker, strike_price, risk_free_rate, sigma, exercise_date, current_price
+
+
+# --- Black-Scholes Model ---
+if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
+    ticker, strike_price, risk_free_rate, sigma, exercise_date, current_price = render_common_inputs("Black-Scholes")
 
     st.markdown("<div style='margin-top:20px;'></div>", unsafe_allow_html=True)
-    if st.button(f'Calculate option price for {ticker}'):
+    if st.button(f'Calculate Option Price for {ticker}'):
         try:
             with st.spinner('Fetching data...'):
                 data = get_historical_data(ticker)
 
             if data is not None and not data.empty:
                 spot_price = Ticker.get_last_price(data, 'Close')
-                risk_free_rate = risk_free_rate / 100
-                sigma = sigma / 100
+                risk_free_rate /= 100
+                sigma /= 100
                 days_to_maturity = (exercise_date - datetime.now().date()).days
-            
+
                 BSM = BlackScholesModel(spot_price, strike_price, days_to_maturity, risk_free_rate, sigma)
-                call_option_price = BSM.calculate_option_price('Call Option')
-                put_option_price = BSM.calculate_option_price('Put Option')
-            
-                st.markdown(
-                    """
-                    <style>
-                    [data-testid="stMetricValue"],
-                    [data-testid="stMetricValue"] * {
-                        font-size: 2.5rem !important;
-                        font-weight: 600 !important;
-                        line-height: 1 !important;
-                    }
-                
-                    [data-testid="stMetricLabel"],
-                    [data-testid="stMetricLabel"] * {
-                        font-size: 1.1rem !important;
-                        font-weight: 500 !important;
-                    }
-                
-                    [data-testid="stMetricLabel"] {
-                        margin-bottom: 0.5rem !important;
-                    }
-                    </style>
-                    """,
-                    unsafe_allow_html=True,
-                )
-                
-                col1, col2, spacer = st.columns([1, 1, 2])
+                call_price = BSM.calculate_option_price('Call Option')
+                put_price = BSM.calculate_option_price('Put Option')
+
+                col1, col2, _ = st.columns([1, 1, 2])
                 with col1:
-                    st.metric("Call Option Price", f"${call_option_price:.2f}")
+                    st.metric("Call Option Price", f"${call_price:.2f}")
                 with col2:
-                    st.metric("Put Option Price", f"${put_option_price:.2f}")
-                
-                st.markdown(
-                    '<hr style="margin-top:15px; margin-bottom:20px; border:0; border-top:1px solid #ccc;">',
-                    unsafe_allow_html=True
-                )
-            
-                st.write("Data fetched successfully:")
+                    st.metric("Put Option Price", f"${put_price:.2f}")
+
+                st.markdown('<hr>', unsafe_allow_html=True)
+                st.write("Recent Data:")
                 st.write(data.tail())
-            
+
                 fig = Ticker.plot_data(data, ticker, 'Close')
                 st.pyplot(fig)
-                
             else:
-                st.error("Unable to proceed with calculations due to data fetching error.")
+                st.error("Unable to fetch data for calculations.")
         except Exception as e:
             st.error(f"Error during calculation: {str(e)}")
 
+
+# --- Monte Carlo Simulation ---
 elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
-    # Make text uppercase
-    st.markdown(
-        """
-        <style>
-        [data-testid="stTextInput"] input {
-            text-transform: uppercase;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-    
-    # Parameters for Monte Carlo simulation
-    ticker = st.text_input('Ticker symbol', 'AAPL')
-    ticker = ticker.upper()
-    st.caption("Enter the stock symbol (e.g., AAPL for Apple Inc.)")
+    ticker, strike_price, risk_free_rate, sigma, exercise_date, current_price = render_common_inputs("Monte Carlo")
 
-    # Fetch current price
-    current_price = get_current_price(ticker)
-    
-    if current_price is not None:
-        st.write(f"Current price of {ticker}: ${current_price:.2f}")
-        
-        # Set default and min/max values based on current price
-        default_strike = round(current_price, 2)
-        min_strike = max(0.1, round(current_price * 0.5, 2))
-        max_strike = round(current_price * 2, 2)
-        
-        strike_price = st.number_input('Strike price', 
-                                       min_value=min_strike, 
-                                       max_value=max_strike, 
-                                       value=default_strike, 
-                                       step=0.01)
-        st.caption(f"The price at which the option can be exercised. Range: \${min_strike:.2f} to ${max_strike:.2f}")
-    else:
-        strike_price = st.number_input('Strike price', min_value=0.01, value=100.0, step=0.01)
-        st.caption("The price at which the option can be exercised. Enter a valid ticker to see a suggested range.")
+    number_of_simulations = st.slider('Number of Simulations', 100, 100000, 10000)
+    st.caption("Number of simulated price paths. More simulations improve accuracy but take longer.")
 
-    risk_free_rate = st.slider('Risk-free rate (%)', 0, 100, 5)
-    st.caption("The theoretical rate of return of an investment with zero risk. Usually based on government bonds. 0% means no risk-free return, 100% means doubling your money risk-free (unrealistic).")
-
-    sigma = st.slider('Sigma (Volatility) (%)', 0, 100, 20)
-    st.caption("A measure of the stock's price variability. Higher values indicate more volatile stocks. 0% means no volatility (unrealistic), 100% means extremely volatile.")
-
-    exercise_date = st.date_input('Exercise date', min_value=datetime.today() + timedelta(days=1), value=datetime.today() + timedelta(days=365))
-    st.caption("The date when the option can be exercised")
-
-    number_of_simulations = st.slider('Number of simulations', 100, 100000, 10000)
-    st.caption("The number of price paths to simulate. More simulations increase accuracy but take longer to compute.")
-
-    num_of_movements = st.slider('Number of price movement simulations to be visualized ', 0, int(number_of_simulations/10), 100)
-    st.caption("The number of simulated price paths to display on the graph")
+    num_of_movements = st.slider('Paths Displayed on Graph', 0, int(number_of_simulations / 10), 100)
+    st.caption("Number of simulated price paths to display in the visualization.")
 
     st.markdown("<div style='margin-top:20px;'></div>", unsafe_allow_html=True)
-    if st.button(f'Calculate option price for {ticker}'):
+    if st.button(f'Calculate Option Price for {ticker}'):
         try:
             with st.spinner('Fetching data...'):
                 data = get_historical_data(ticker)
             
             if data is not None and not data.empty:
                 spot_price = Ticker.get_last_price(data, 'Close')
-                risk_free_rate = risk_free_rate / 100
-                sigma = sigma / 100
+                risk_free_rate /= 100
+                sigma /= 100
                 days_to_maturity = (exercise_date - datetime.now().date()).days
-            
+
                 MC = MonteCarloPricing(spot_price, strike_price, days_to_maturity, risk_free_rate, sigma, number_of_simulations)
                 MC.simulate_prices()
-            
-                call_option_price = MC.calculate_option_price('Call Option')
-                put_option_price = MC.calculate_option_price('Put Option')
-            
-                st.markdown(
-                    """
-                    <style>
-                    [data-testid="stMetricValue"],
-                    [data-testid="stMetricValue"] * {
-                        font-size: 2.5rem !important;
-                        font-weight: 600 !important;
-                        line-height: 1 !important;
-                    }
-                
-                    [data-testid="stMetricLabel"],
-                    [data-testid="stMetricLabel"] * {
-                        font-size: 1.1rem !important;
-                        font-weight: 500 !important;
-                    }
-                
-                    [data-testid="stMetricLabel"] {
-                        margin-bottom: 0.5rem !important;
-                    }
-                    </style>
-                    """,
-                    unsafe_allow_html=True,
-                )
-                
-                col1, col2, spacer = st.columns([1, 1, 2])
+
+                call_price = MC.calculate_option_price('Call Option')
+                put_price = MC.calculate_option_price('Put Option')
+
+                col1, col2, _ = st.columns([1, 1, 2])
                 with col1:
-                    st.metric("Call Option Price", f"${call_option_price:.2f}")
+                    st.metric("Call Option Price", f"${call_price:.2f}")
                 with col2:
-                    st.metric("Put Option Price", f"${put_option_price:.2f}")
-                
-                st.markdown(
-                    '<hr style="margin-top:15px; margin-bottom:20px; border:0; border-top:1px solid #ccc;">',
-                    unsafe_allow_html=True
-                )
-            
-                st.write("Data fetched successfully:")
+                    st.metric("Put Option Price", f"${put_price:.2f}")
+
+                st.markdown('<hr>', unsafe_allow_html=True)
+                st.write("Recent Data:")
                 st.write(data.tail())
-                
-                fig = Ticker.plot_data(data, ticker, 'Close')
-                st.pyplot(fig)
-            
-                fig = MC.plot_simulation_results(num_of_movements)
-                st.pyplot(fig)
-            
+
+                st.pyplot(Ticker.plot_data(data, ticker, 'Close'))
+                st.pyplot(MC.plot_simulation_results(num_of_movements))
             else:
-                st.error("Unable to proceed with calculations due to data fetching error.")
+                st.error("Unable to fetch data for calculations.")
         except Exception as e:
             st.error(f"Error during calculation: {str(e)}")
 
+
+# --- Binomial Model ---
 elif pricing_method == OPTION_PRICING_MODEL.BINOMIAL.value:
-    # Make text uppercase
-    st.markdown(
-        """
-        <style>
-        [data-testid="stTextInput"] input {
-            text-transform: uppercase;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-    
-    # Parameters for Binomial-Tree model
-    ticker = st.text_input('Ticker symbol', 'AAPL')
-    ticker = ticker.upper()
-    st.caption("Enter the stock symbol (e.g., AAPL for Apple Inc.)")
+    ticker, strike_price, risk_free_rate, sigma, exercise_date, current_price = render_common_inputs("Binomial")
 
-    # Fetch current price
-    current_price = get_current_price(ticker)
-    
-    if current_price is not None:
-        st.write(f"Current price of {ticker}: ${current_price:.2f}")
-        
-        # Set default and min/max values based on current price
-        default_strike = round(current_price, 2)
-        min_strike = max(0.1, round(current_price * 0.5, 2))
-        max_strike = round(current_price * 2, 2)
-        
-        strike_price = st.number_input('Strike price', 
-                                       min_value=min_strike, 
-                                       max_value=max_strike, 
-                                       value=default_strike, 
-                                       step=0.01)
-        st.caption(f"The price at which the option can be exercised. Range: \${min_strike:.2f} to ${max_strike:.2f}")
-    else:
-        strike_price = st.number_input('Strike price', min_value=0.01, value=100.0, step=0.01)
-        st.caption("The price at which the option can be exercised. Enter a valid ticker to see a suggested range.")
-
-    risk_free_rate = st.slider('Risk-free rate (%)', 0, 100, 5)
-    st.caption("The theoretical rate of return of an investment with zero risk. Usually based on government bonds. 0% means no risk-free return, 100% means doubling your money risk-free (unrealistic).")
-
-    sigma = st.slider('Sigma (Volatility) (%)', 0, 100, 20)
-    st.caption("A measure of the stock's price variability. Higher values indicate more volatile stocks. 0% means no volatility (unrealistic), 100% means extremely volatile.")
-
-    exercise_date = st.date_input('Exercise date', min_value=datetime.today() + timedelta(days=1), value=datetime.today() + timedelta(days=365))
-    st.caption("The date when the option can be exercised")
-
-    number_of_time_steps = st.slider('Number of time steps', 5000, 100000, 15000)
-    st.caption("The number of periods in the binomial tree. More steps increase accuracy but take longer to compute.")
+    number_of_steps = st.slider('Number of Time Steps', 5000, 100000, 15000)
+    st.caption("Number of periods in the binomial tree. More steps improve accuracy but take longer.")
 
     st.markdown("<div style='margin-top:20px;'></div>", unsafe_allow_html=True)
-    if st.button(f'Calculate option price for {ticker}'):
+    if st.button(f'Calculate Option Price for {ticker}'):
         try:
             with st.spinner('Fetching data...'):
                 data = get_historical_data(ticker)
-            
+
             if data is not None and not data.empty:
                 spot_price = Ticker.get_last_price(data, 'Close')
-                risk_free_rate = risk_free_rate / 100
-                sigma = sigma / 100
+                risk_free_rate /= 100
+                sigma /= 100
                 days_to_maturity = (exercise_date - datetime.now().date()).days
-            
-                BOPM = BinomialTreeModel(spot_price, strike_price, days_to_maturity, risk_free_rate, sigma, number_of_time_steps)
-                call_option_price = BOPM.calculate_option_price('Call Option')
-                put_option_price = BOPM.calculate_option_price('Put Option')
 
-                st.markdown(
-                    """
-                    <style>
-                    [data-testid="stMetricValue"],
-                    [data-testid="stMetricValue"] * {
-                        font-size: 2.5rem !important;
-                        font-weight: 600 !important;
-                        line-height: 1 !important;
-                    }
-                
-                    [data-testid="stMetricLabel"],
-                    [data-testid="stMetricLabel"] * {
-                        font-size: 1.1rem !important;
-                        font-weight: 500 !important;
-                    }
-                
-                    [data-testid="stMetricLabel"] {
-                        margin-bottom: 0.5rem !important;
-                    }
-                    </style>
-                    """,
-                    unsafe_allow_html=True,
-                )
-                
-                col1, col2, spacer = st.columns([1, 1, 2])
+                BOPM = BinomialTreeModel(spot_price, strike_price, days_to_maturity, risk_free_rate, sigma, number_of_steps)
+                call_price = BOPM.calculate_option_price('Call Option')
+                put_price = BOPM.calculate_option_price('Put Option')
+
+                col1, col2, _ = st.columns([1, 1, 2])
                 with col1:
-                    st.metric("Call Option Price", f"${call_option_price:.2f}")
+                    st.metric("Call Option Price", f"${call_price:.2f}")
                 with col2:
-                    st.metric("Put Option Price", f"${put_option_price:.2f}")
-                
-                st.markdown(
-                    '<hr style="margin-top:15px; margin-bottom:20px; border:0; border-top:1px solid #ccc;">',
-                    unsafe_allow_html=True
-                )
+                    st.metric("Put Option Price", f"${put_price:.2f}")
 
-                st.write("Data fetched successfully:")
+                st.markdown('<hr>', unsafe_allow_html=True)
+                st.write("Recent Data:")
                 st.write(data.tail())
-                
-                fig = Ticker.plot_data(data, ticker, 'Close')
-                st.pyplot(fig)
-                
+
+                st.pyplot(Ticker.plot_data(data, ticker, 'Close'))
             else:
-                st.error("Unable to proceed with calculations due to data fetching error.")
+                st.error("Unable to fetch data for calculations.")
         except Exception as e:
             st.error(f"Error during calculation: {str(e)}")
-        
