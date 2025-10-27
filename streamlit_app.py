@@ -43,10 +43,10 @@ st.markdown(
 )
 
 # User selected model from sidebar 
-pricing_method = st.sidebar.radio('Please select option pricing method', options=[model.value for model in OPTION_PRICING_MODEL])
+pricing_method = st.sidebar.radio('Select Option Pricing Method', options=[model.value for model in OPTION_PRICING_MODEL])
 
 # Displaying specified model
-st.subheader(f'Pricing method: {pricing_method}')
+st.subheader(f'Pricing Method: {pricing_method}')
 
 if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
     # Make text uppercase
@@ -62,7 +62,7 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
     )
     
     # Parameters for Black-Scholes model
-    ticker = st.text_input('Ticker symbol', 'AAPL')
+    ticker = st.text_input('Ticker Symbol', 'AAPL')
     ticker = ticker.upper()
     st.caption("Enter stock symbol (e.g., AAPL for Apple Inc.)")
 
@@ -70,14 +70,14 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
     current_price = get_current_price(ticker)
     
     if current_price is not None:
-        st.write(f"Current price of {ticker}: ${current_price:.2f}")
+        st.write(f"Current Price of {ticker}: ${current_price:.2f}")
         
         # Set default and min/max values based on current price
         default_strike = round(current_price, 2)
         min_strike = max(0.1, round(current_price * 0.5, 2))
         max_strike = round(current_price * 2, 2)
         
-        strike_price = st.number_input('Strike price', 
+        strike_price = st.number_input('Strike Price', 
                                        min_value=min_strike, 
                                        max_value=max_strike, 
                                        value=default_strike, 
@@ -87,13 +87,13 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
         strike_price = st.number_input('Strike price', min_value=0.01, value=100.0, step=0.01)
         st.caption("Price to exercise the option. Enter a valid ticker to see a suggested range.")
 
-    risk_free_rate = st.slider('Risk-free rate (%)', 0, 100, 5)
+    risk_free_rate = st.slider('Risk-Free Rate (%)', 0, 100, 5)
     st.caption("Annual return of a risk-free asset.")
 
     sigma = st.slider('Volatility (%)', 0, 100, 20)
     st.caption("Expected stock price fluctuation.")
 
-    exercise_date = st.date_input('Exercise date', min_value=datetime.today() + timedelta(days=1), value=datetime.today() + timedelta(days=365))
+    exercise_date = st.date_input('Exercise Date', min_value=datetime.today() + timedelta(days=1), value=datetime.today() + timedelta(days=365))
     st.caption("Date when the option can be exercised.")
 
     st.markdown("<div style='margin-top:20px;'></div>", unsafe_allow_html=True)
