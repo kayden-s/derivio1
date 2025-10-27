@@ -281,45 +281,45 @@ elif pricing_method == OPTION_PRICING_MODEL.BINOMIAL.value:
     )
     
     # Parameters for Binomial-Tree model
-    ticker = st.text_input('Ticker symbol', 'AAPL')
+    ticker = st.text_input('Ticker Symbol', 'AAPL')
     ticker = ticker.upper()
-    st.caption("Enter the stock symbol (e.g., AAPL for Apple Inc.)")
+    st.caption("Enter stock symbol (e.g., AAPL for Apple).")
 
     # Fetch current price
     current_price = get_current_price(ticker)
     
     if current_price is not None:
-        st.write(f"Current price of {ticker}: ${current_price:.2f}")
+        st.write(f"Current Price of {ticker}: ${current_price:.2f}")
         
         # Set default and min/max values based on current price
         default_strike = round(current_price, 2)
         min_strike = max(0.1, round(current_price * 0.5, 2))
         max_strike = round(current_price * 2, 2)
         
-        strike_price = st.number_input('Strike price', 
+        strike_price = st.number_input('Strike Price', 
                                        min_value=min_strike, 
                                        max_value=max_strike, 
                                        value=default_strike, 
                                        step=0.01)
-        st.caption(f"The price at which the option can be exercised. Range: \${min_strike:.2f} to ${max_strike:.2f}")
+        st.caption(f"Price to exercise the option. Range: \${min_strike:.2f} to \${max_strike:.2f}.")
     else:
-        strike_price = st.number_input('Strike price', min_value=0.01, value=100.0, step=0.01)
-        st.caption("The price at which the option can be exercised. Enter a valid ticker to see a suggested range.")
+        strike_price = st.number_input('Strike Price', min_value=0.01, value=100.0, step=0.01)
+        st.caption("Price to exercise the option. Enter a valid ticker to see a suggested range.")
 
-    risk_free_rate = st.slider('Risk-free rate (%)', 0, 100, 5)
-    st.caption("The theoretical rate of return of an investment with zero risk. Usually based on government bonds. 0% means no risk-free return, 100% means doubling your money risk-free (unrealistic).")
+    risk_free_rate = st.slider('Risk-Free Rate (%)', 0, 100, 5)
+    st.caption("Annual return of a risk-free asset.")
 
-    sigma = st.slider('Sigma (Volatility) (%)', 0, 100, 20)
-    st.caption("A measure of the stock's price variability. Higher values indicate more volatile stocks. 0% means no volatility (unrealistic), 100% means extremely volatile.")
+    sigma = st.slider('Volatility (%)', 0, 100, 20)
+    st.caption("Expected stock price fluctuation.")
 
-    exercise_date = st.date_input('Exercise date', min_value=datetime.today() + timedelta(days=1), value=datetime.today() + timedelta(days=365))
-    st.caption("The date when the option can be exercised")
+    exercise_date = st.date_input('Exercise Date', min_value=datetime.today() + timedelta(days=1), value=datetime.today() + timedelta(days=365))
+    st.caption("Date when the option can be exercised.")
 
-    number_of_time_steps = st.slider('Number of time steps', 5000, 100000, 15000)
-    st.caption("The number of periods in the binomial tree. More steps increase accuracy but take longer to compute.")
+    number_of_time_steps = st.slider('Number of Time Steps', 5000, 100000, 15000)
+    st.caption("Number of periods in the binomial tree.")
 
     st.markdown("<div style='margin-top:20px;'></div>", unsafe_allow_html=True)
-    if st.button(f'Calculate option price for {ticker}'):
+    if st.button(f'Calculate Option Price'):
         try:
             with st.spinner('Fetching data...'):
                 data = get_historical_data(ticker)
@@ -369,11 +369,8 @@ elif pricing_method == OPTION_PRICING_MODEL.BINOMIAL.value:
                     unsafe_allow_html=True
                 )
 
-                st.write("Data fetched successfully:")
+                st.write("Data Fetched Successfully")
                 st.write(data.tail())
-                
-                fig = Ticker.plot_data(data, ticker, 'Close')
-                st.pyplot(fig)
                 
             else:
                 st.error("Unable to proceed with calculations due to data fetching error.")
