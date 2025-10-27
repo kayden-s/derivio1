@@ -64,7 +64,7 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
     # Parameters for Black-Scholes model
     ticker = st.text_input('Ticker Symbol', 'AAPL')
     ticker = ticker.upper()
-    st.caption("Enter stock symbol (e.g., AAPL for Apple Inc.)")
+    st.caption("Enter stock symbol (e.g., AAPL for Apple).")
 
     # Fetch current price
     current_price = get_current_price(ticker)
@@ -82,7 +82,7 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                                        max_value=max_strike, 
                                        value=default_strike, 
                                        step=0.01)
-        st.caption(f"Price to exercise the option. Range: \${min_strike:.2f} to \${max_strike:.2f}")
+        st.caption(f"Price to exercise the option. Range: \${min_strike:.2f} to \${max_strike:.2f}.")
     else:
         strike_price = st.number_input('Strike price', min_value=0.01, value=100.0, step=0.01)
         st.caption("Price to exercise the option. Enter a valid ticker to see a suggested range.")
