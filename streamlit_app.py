@@ -67,7 +67,7 @@ st.markdown(
 )
 
 # User selected model from sidebar
-pricing_method = st.sidebar.radio('Select Option Pricing Method', options=[model.value for model in OPTION_PRICING_MODEL])
+pricing_method = st.sidebar.radio('Select Pricing Method', options=[model.value for model in OPTION_PRICING_MODEL])
 
 # Displaying specified model
 st.subheader(f'Pricing Method: {pricing_method}')
