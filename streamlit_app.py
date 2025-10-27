@@ -148,7 +148,6 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                 )
             
                 st.write("Data Fetched Successfully")
-                st.write(data.tail())
                 
             else:
                 st.error("Unable to proceed with calculations due to data fetching error.")
