@@ -82,19 +82,19 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
                                        max_value=max_strike, 
                                        value=default_strike, 
                                        step=0.01)
-        st.caption(f"The price at which the option can be exercised. Range: \${min_strike:.2f} to \${max_strike:.2f}")
+        st.caption(f"Price to exercise the option. Range: \${min_strike:.2f} to \${max_strike:.2f}")
     else:
         strike_price = st.number_input('Strike price', min_value=0.01, value=100.0, step=0.01)
-        st.caption("The price at which the option can be exercised. Enter a valid ticker to see a suggested range.")
+        st.caption("Price to exercise the option. Enter a valid ticker to see a suggested range.")
 
     risk_free_rate = st.slider('Risk-free rate (%)', 0, 100, 5)
-    st.caption("The theoretical rate of return of an investment with zero risk. Usually based on government bonds. 0% means no risk-free return, 100% means doubling your money risk-free (unrealistic).")
+    st.caption("Annual return of a risk-free asset.")
 
-    sigma = st.slider('Sigma (Volatility) (%)', 0, 100, 20)
-    st.caption("A measure of the stock's price variability. Higher values indicate more volatile stocks. 0% means no volatility (unrealistic), 100% means extremely volatile.")
+    sigma = st.slider('Volatility (%)', 0, 100, 20)
+    st.caption("Expected stock price fluctuation.")
 
     exercise_date = st.date_input('Exercise date', min_value=datetime.today() + timedelta(days=1), value=datetime.today() + timedelta(days=365))
-    st.caption("The date when the option can be exercised")
+    st.caption("Date when the option can be exercised.")
 
     st.markdown("<div style='margin-top:20px;'></div>", unsafe_allow_html=True)
     if st.button(f'Calculate option price for {ticker}'):
