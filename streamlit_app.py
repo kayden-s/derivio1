@@ -42,17 +42,14 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Clean UI: remove Streamlit menu, footer, GitHub fork, and stToolbarActionButton — keep sidebar toggle
+# Remove Streamlit menu
 st.markdown(
     """
     <style>
-    /* Hide Streamlit hamburger menu */
     #MainMenu {visibility: hidden !important;}
 
-    /* Hide footer text */
     footer {visibility: hidden !important;}
 
-    /* Hide any GitHub or Fork-related elements in the toolbar */
     [data-testid="stToolbar"] a[href*="github.com"],
     [data-testid="stToolbar"] svg,
     [data-testid="stToolbar"] span:has(svg),
@@ -61,19 +58,16 @@ st.markdown(
         visibility: hidden !important;
     }
 
-    /* Hide possible colored bar decoration */
     div[data-testid="stDecoration"] {visibility: hidden !important;}
 
-    /* Keep sidebar toggle arrows visible */
     [data-testid="collapsedControl"] {visibility: visible !important;}
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# Show pricing method selection in main content instead of sidebar
+# User selected model from sidebar
 pricing_method = st.sidebar.radio('Select Option Pricing Method', options=[model.value for model in OPTION_PRICING_MODEL])
-
 
 # Displaying specified model
 st.subheader(f'Pricing Method: {pricing_method}')
