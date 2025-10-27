@@ -42,8 +42,24 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# User selected model from sidebar 
-pricing_method = st.sidebar.radio('Select Option Pricing Method', options=[model.value for model in OPTION_PRICING_MODEL])
+# Hide Streamlit default sidebar menu and footer
+st.markdown(
+    """
+    <style>
+    [data-testid="stSidebarNav"] {display: none;}
+    footer {visibility: hidden;}
+    #MainMenu {visibility: hidden;}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Show pricing method selection in main content instead of sidebar
+pricing_method = st.radio(
+    'Select Option Pricing Method',
+    options=[model.value for model in OPTION_PRICING_MODEL],
+    horizontal=True,
+)
 
 # Displaying specified model
 st.subheader(f'Pricing Method: {pricing_method}')
