@@ -97,7 +97,7 @@ if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
     st.caption("Date when the option can be exercised.")
 
     st.markdown("<div style='margin-top:20px;'></div>", unsafe_allow_html=True)
-    if st.button(f'Calculate option price for {ticker}'):
+    if st.button(f'Calculate Option Price'):
         try:
             with st.spinner('Fetching data...'):
                 data = get_historical_data(ticker)
