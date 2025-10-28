@@ -78,13 +78,13 @@ def explain_black_scholes():
     st.latex(r"d_1 = \frac{\ln(S_0 / K) + (r + \frac{\sigma^2}{2})t}{\sigma \sqrt{t}}, \quad d_2 = d_1 - \sigma \sqrt{t}")
 
     st.markdown(r"""
-    Definitions:
-    - S₀: Current stock price  
-    - K: Strike price  
-    - t: Time to maturity (in years)  
-    - r: Annual risk-free interest rate  
-    - σ: Annualized volatility of returns  
-    - N(x) : Cumulative distribution function of a standard normal variable  
+    **Definitions:**
+    - $S_0$: Current stock price  
+    - $K$: Strike price  
+    - $t$: Time to maturity (in years)  
+    - $r$: Annual risk-free interest rate  
+    - $\sigma$: Annualized volatility of returns  
+    - $N(x)$: Cumulative distribution function of a standard normal variable  
 
     ---
     ### Intuition
@@ -122,12 +122,12 @@ def explain_monte_carlo():
     st.latex(r"C = e^{-rt} \frac{1}{N} \sum_{i=1}^{N} \max(S_T^{(i)} - K, 0)")
 
     st.markdown(r"""
-    Definitions:
-    - N: Number of simulations  
-    - Sᵀ⁽ⁱ⁾: Simulated price at expiration for the i-th path  
-    - r: Annual risk-free rate  
-    - t: Time to maturity (in years)  
-    - K: Strike price  
+    **Definitions:**
+    - $N$: Number of simulations  
+    - $S_T^{(i)}$: Simulated price at expiration for the i-th path  
+    - $r$: Annual risk-free rate  
+    - $t$: Time to maturity (in years)  
+    - $K$: Strike price  
 
     ---
     ### Intuition
@@ -171,13 +171,13 @@ def explain_binomial():
     st.latex(r"C = e^{-rt} [pC_u + (1 - p)C_d]")
 
     st.markdown(r"""
-    Definitions:
-    - Cᵤ: Option value after an upward move  
-    - C_d: Option value after a downward move  
-    - u: Upward price multiplier  
-    - d: Downward price multiplier  
-    - r: Annual risk-free rate  
-    - t: Time step length  
+    **Definitions:**
+    - $C_u$: Option value after an upward move  
+    - $C_d$: Option value after a downward move  
+    - $u$: Upward price multiplier  
+    - $d$: Downward price multiplier  
+    - $r$: Annual risk-free rate  
+    - $t$: Time step length  
 
     ---
     ### Intuition
