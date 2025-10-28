@@ -60,7 +60,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-col1, col2, col3 = st.columns([1, 2, 2])  # 1/3 width (1 out of total 5 parts)
+col1, col2, col3 = st.columns([1, 1, 1])
 with col1:
     mode = st.selectbox("Choose Mode", ["Calculate", "Learn"], index=0)
 
