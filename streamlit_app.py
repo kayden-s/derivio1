@@ -88,9 +88,9 @@ def explain_black_scholes():
 
     ---
     ### Intuition
-    The model calculates what an option should cost based on how risky the stock is and how much time remains until expiration.  
-    If volatility or time increase, the option becomes more valuable.  
-    If interest rates rise, call options increase slightly in value, while puts decrease.
+    - The model calculates what an option should cost based on how risky the stock is and how much time remains until expiration.  
+    - If volatility or time increase, the option becomes more valuable.  
+    - If interest rates rise, call options increase slightly in value, while puts decrease.
 
     ---
     ### Real-World Application
@@ -131,9 +131,9 @@ def explain_monte_carlo():
 
     ---
     ### Intuition
-    Think of it as running a “what-if” experiment thousands of times.  
-    Each simulation represents one possible market future.  
-    Averaging them smooths out randomness to reveal a probabilistic fair price.
+    - Think of it as running a “what-if” experiment thousands of times.  
+    - Each simulation represents one possible market future.  
+    - Averaging them smooths out randomness to reveal a probabilistic fair price.
 
     ---
     ### Advantages
@@ -181,8 +181,8 @@ def explain_binomial():
 
     ---
     ### Intuition
-    The model works like a decision tree.  
-    It simulates all possible paths the stock might take, computes the option value at the end of each branch, and works backward using probabilities to find today’s fair price.
+    - The model works like a decision tree.  
+    - It simulates all possible paths the stock might take, computes the option value at the end of each branch, and works backward using probabilities to find today’s fair price.
 
     ---
     ### Advantages
