@@ -136,71 +136,194 @@ if mode == "Learn":
 elif mode == "Calculate":
     st.subheader(f'💻 Pricing Method: {pricing_method}')
     st.caption("Use this calculator to apply theoretical models to live market data.")
-
-    # Keep your entire calculator logic exactly as before:
+    
+    # =====================
+    # BLACK-SCHOLES MODEL
+    # =====================
     if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
-    st.markdown(
-        """
-        <style>
-        [data-testid="stTextInput"] input {
-            text-transform: uppercase;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-    
-    ticker = st.text_input('Ticker Symbol', 'AAPL').upper()
-    st.caption("Enter stock symbol (e.g., AAPL for Apple).")
-
-    current_price = get_current_price(ticker)
-    
-    if current_price is not None:
-        st.write(f"Current Price of {ticker}: ${current_price:.2f}")
-        default_strike = round(current_price, 2)
-        min_strike = max(0.1, round(current_price * 0.5, 2))
-        max_strike = round(current_price * 2, 2)
+        st.markdown(
+            """
+            <style>
+            [data-testid="stTextInput"] input {
+                text-transform: uppercase;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
         
-        strike_price = st.number_input('Strike Price', 
-                                       min_value=min_strike, 
-                                       max_value=max_strike, 
-                                       value=default_strike, 
-                                       step=0.01)
-        st.caption(f"Price to exercise the option. Range: \${min_strike:.2f} to \${max_strike:.2f}.")
-    else:
-        strike_price = st.number_input('Strike price', min_value=0.01, value=100.0, step=0.01)
-        st.caption("Price to exercise the option. Enter a valid ticker to see a suggested range.")
-
-    risk_free_rate = st.slider('Risk-Free Rate (%)', 0, 100, 5)
-    sigma = st.slider('Volatility (%)', 0, 100, 20)
-    exercise_date = st.date_input('Exercise Date', min_value=datetime.today() + timedelta(days=1), value=datetime.today() + timedelta(days=365))
-
-    if st.button('Calculate Option Price'):
-        try:
-            with st.spinner('Fetching data...'):
-                data = get_historical_data(ticker)
-            if data is not None and not data.empty:
-                spot_price = Ticker.get_last_price(data, 'Close')
-                risk_free_rate /= 100
-                sigma /= 100
-                days_to_maturity = (exercise_date - datetime.now().date()).days
-            
-                BSM = BlackScholesModel(spot_price, strike_price, days_to_maturity, risk_free_rate, sigma)
-                call_option_price = BSM.calculate_option_price('Call Option')
-                put_option_price = BSM.calculate_option_price('Put Option')
-            
-                st.metric("Call Option Price", f"${call_option_price:.2f}")
-                st.metric("Put Option Price", f"${put_option_price:.2f}")
-                st.write("Data Fetched Successfully")
-                st.write(data.tail())
-            else:
-                st.error("Unable to proceed with calculations due to data fetching error.")
-        except Exception as e:
-            st.error(f"Error during calculation: {str(e)}")
+        ticker = st.text_input('Ticker Symbol', 'AAPL').upper()
+        st.caption("Enter stock symbol (e.g., AAPL for Apple).")
+    
+        current_price = get_current_price(ticker)
         
+        if current_price is not None:
+            st.write(f"Current Price of {ticker}: ${current_price:.2f}")
+            default_strike = round(current_price, 2)
+            min_strike = max(0.1, round(current_price * 0.5, 2))
+            max_strike = round(current_price * 2, 2)
+            
+            strike_price = st.number_input('Strike Price', 
+                                           min_value=min_strike, 
+                                           max_value=max_strike, 
+                                           value=default_strike, 
+                                           step=0.01)
+            st.caption(f"Price to exercise the option. Range: \${min_strike:.2f} to \${max_strike:.2f}.")
+        else:
+            strike_price = st.number_input('Strike price', min_value=0.01, value=100.0, step=0.01)
+            st.caption("Price to exercise the option. Enter a valid ticker to see a suggested range.")
+    
+        risk_free_rate = st.slider('Risk-Free Rate (%)', 0, 100, 5)
+        sigma = st.slider('Volatility (%)', 0, 100, 20)
+        exercise_date = st.date_input('Exercise Date', min_value=datetime.today() + timedelta(days=1), value=datetime.today() + timedelta(days=365))
+    
+        if st.button('Calculate Option Price'):
+            try:
+                with st.spinner('Fetching data...'):
+                    data = get_historical_data(ticker)
+                if data is not None and not data.empty:
+                    spot_price = Ticker.get_last_price(data, 'Close')
+                    risk_free_rate /= 100
+                    sigma /= 100
+                    days_to_maturity = (exercise_date - datetime.now().date()).days
+                
+                    BSM = BlackScholesModel(spot_price, strike_price, days_to_maturity, risk_free_rate, sigma)
+                    call_option_price = BSM.calculate_option_price('Call Option')
+                    put_option_price = BSM.calculate_option_price('Put Option')
+                
+                    st.metric("Call Option Price", f"${call_option_price:.2f}")
+                    st.metric("Put Option Price", f"${put_option_price:.2f}")
+                    st.write("Data Fetched Successfully")
+                    st.write(data.tail())
+                else:
+                    st.error("Unable to proceed with calculations due to data fetching error.")
+            except Exception as e:
+                st.error(f"Error during calculation: {str(e)}")
+    
+    # =====================
+    # MONTE CARLO MODEL
+    # =====================
     elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
-        # (Insert your Monte Carlo calculator block here — unchanged)
-        ...
+        st.markdown(
+            """
+            <style>
+            [data-testid="stTextInput"] input {
+                text-transform: uppercase;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        
+        ticker = st.text_input('Ticker Symbol', 'AAPL').upper()
+        st.caption("Enter stock symbol (e.g., AAPL for Apple).")
+    
+        current_price = get_current_price(ticker)
+        
+        if current_price is not None:
+            st.write(f"Current Price of {ticker}: ${current_price:.2f}")
+            default_strike = round(current_price, 2)
+            min_strike = max(0.1, round(current_price * 0.5, 2))
+            max_strike = round(current_price * 2, 2)
+            
+            strike_price = st.number_input('Strike Price', 
+                                           min_value=min_strike, 
+                                           max_value=max_strike, 
+                                           value=default_strike, 
+                                           step=0.01)
+            st.caption(f"Price to exercise the option. Range: \${min_strike:.2f} to \${max_strike:.2f}.")
+        else:
+            strike_price = st.number_input('Strike price', min_value=0.01, value=100.0, step=0.01)
+    
+        risk_free_rate = st.slider('Risk-Free Rate (%)', 0, 100, 5)
+        sigma = st.slider('Volatility (%)', 0, 100, 20)
+        exercise_date = st.date_input('Exercise Date', min_value=datetime.today() + timedelta(days=1), value=datetime.today() + timedelta(days=365))
+        number_of_simulations = st.slider('Number of Simulations', 100, 100000, 10000)
+    
+        if st.button('Calculate Option Price'):
+            try:
+                with st.spinner('Fetching data...'):
+                    data = get_historical_data(ticker)
+                if data is not None and not data.empty:
+                    spot_price = Ticker.get_last_price(data, 'Close')
+                    risk_free_rate /= 100
+                    sigma /= 100
+                    days_to_maturity = (exercise_date - datetime.now().date()).days
+                
+                    MC = MonteCarloPricing(spot_price, strike_price, days_to_maturity, risk_free_rate, sigma, number_of_simulations)
+                    MC.simulate_prices()
+                
+                    call_option_price = MC.calculate_option_price('Call Option')
+                    put_option_price = MC.calculate_option_price('Put Option')
+                
+                    st.metric("Call Option Price", f"${call_option_price:.2f}")
+                    st.metric("Put Option Price", f"${put_option_price:.2f}")
+                    st.write("Data Fetched Successfully")
+                    st.write(data.tail())
+                else:
+                    st.error("Unable to proceed with calculations due to data fetching error.")
+            except Exception as e:
+                st.error(f"Error during calculation: {str(e)}")
+    
+    # =====================
+    # BINOMIAL TREE MODEL
+    # =====================
     elif pricing_method == OPTION_PRICING_MODEL.BINOMIAL.value:
-        # (Insert your Binomial calculator block here — unchanged)
-        ...
+        st.markdown(
+            """
+            <style>
+            [data-testid="stTextInput"] input {
+                text-transform: uppercase;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        
+        ticker = st.text_input('Ticker Symbol', 'AAPL').upper()
+        st.caption("Enter stock symbol (e.g., AAPL for Apple).")
+    
+        current_price = get_current_price(ticker)
+        
+        if current_price is not None:
+            st.write(f"Current Price of {ticker}: ${current_price:.2f}")
+            default_strike = round(current_price, 2)
+            min_strike = max(0.1, round(current_price * 0.5, 2))
+            max_strike = round(current_price * 2, 2)
+            
+            strike_price = st.number_input('Strike Price', 
+                                           min_value=min_strike, 
+                                           max_value=max_strike, 
+                                           value=default_strike, 
+                                           step=0.01)
+            st.caption(f"Price to exercise the option. Range: \${min_strike:.2f} to \${max_strike:.2f}.")
+        else:
+            strike_price = st.number_input('Strike Price', min_value=0.01, value=100.0, step=0.01)
+    
+        risk_free_rate = st.slider('Risk-Free Rate (%)', 0, 100, 5)
+        sigma = st.slider('Volatility (%)', 0, 100, 20)
+        exercise_date = st.date_input('Exercise Date', min_value=datetime.today() + timedelta(days=1), value=datetime.today() + timedelta(days=365))
+        number_of_time_steps = st.slider('Number of Time Steps', 5000, 100000, 15000)
+    
+        if st.button('Calculate Option Price'):
+            try:
+                with st.spinner('Fetching data...'):
+                    data = get_historical_data(ticker)
+                if data is not None and not data.empty:
+                    spot_price = Ticker.get_last_price(data, 'Close')
+                    risk_free_rate /= 100
+                    sigma /= 100
+                    days_to_maturity = (exercise_date - datetime.now().date()).days
+                
+                    BOPM = BinomialTreeModel(spot_price, strike_price, days_to_maturity, risk_free_rate, sigma, number_of_time_steps)
+                    call_option_price = BOPM.calculate_option_price('Call Option')
+                    put_option_price = BOPM.calculate_option_price('Put Option')
+    
+                    st.metric("Call Option Price", f"${call_option_price:.2f}")
+                    st.metric("Put Option Price", f"${put_option_price:.2f}")
+                    st.write("Data Fetched Successfully")
+                    st.write(data.tail())
+                else:
+                    st.error("Unable to proceed with calculations due to data fetching error.")
+            except Exception as e:
+                st.error(f"Error during calculation: {str(e)}")
