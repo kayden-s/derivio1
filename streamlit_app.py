@@ -218,6 +218,17 @@ if mode == "Learn":
         unsafe_allow_html=True
     )
 
+    if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
+        explain_black_scholes()
+    elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
+        explain_monte_carlo()
+    elif pricing_method == OPTION_PRICING_MODEL.BINOMIAL.value:
+        explain_binomial()
+
+    st.markdown("---")
+    st.markdown("### Try It Yourself")
+    st.write("Switch to Calculate Mode in the sidebar to apply these models to real market data.")
+
     # --- Go to Calculator Button ---
     go_calc = st.markdown(
         """
@@ -245,17 +256,6 @@ if mode == "Learn":
         """,
         unsafe_allow_html=True
     )
-
-    if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
-        explain_black_scholes()
-    elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
-        explain_monte_carlo()
-    elif pricing_method == OPTION_PRICING_MODEL.BINOMIAL.value:
-        explain_binomial()
-
-    st.markdown("---")
-    st.markdown("### Try It Yourself")
-    st.write("Switch to Calculate Mode in the sidebar to apply these models to real market data.")
 
 # --- CALCULATE MODE ---
 elif mode == "Calculate":
