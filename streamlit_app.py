@@ -60,12 +60,10 @@ st.markdown(
         margin-top: 25px;
     }
 
-    /* Allow wrapping when needed */
     [data-testid="stHorizontalBlock"] {
         flex-wrap: wrap !important;
     }
 
-    /* Make stacked layout clean on mobile */
     @media (max-width: 640px) {
         [data-testid="stHorizontalBlock"] {
             gap: 0 !important;
@@ -80,7 +78,6 @@ st.markdown(
             margin: 0 !important;
         }
 
-        /* Remove internal div spacing Streamlit adds */
         [data-testid="column"] > div {
             margin-bottom: 0 !important;
             padding-bottom: 0 !important;
