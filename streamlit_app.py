@@ -60,8 +60,7 @@ pricing_method = st.sidebar.radio('Select Model', options=[m.value for m in OPTI
 def explain_black_scholes():
     st.subheader("Understanding the Black-Scholes Model")
     st.markdown(r"""
-    The Black-Scholes Model (BSM) is one of the most important concepts in modern finance.  
-    It provides a closed-form mathematical formula to estimate the fair value of European call and put options, which give the holder the right (but not the obligation) to buy or sell an asset at a predetermined price.
+    The Black-Scholes Model (BSM) is one of the most important concepts in modern finance. It provides a closed-form mathematical formula to estimate the fair value of European call and put options, which give the holder the right (but not the obligation) to buy or sell an asset at a predetermined price.
 
     ---
     ### Core Idea
@@ -154,8 +153,7 @@ def explain_monte_carlo():
 def explain_binomial():
     st.subheader("Binomial Tree Model")
     st.markdown(r"""
-    The Binomial Tree Model provides a step-by-step, discrete-time framework for valuing options.  
-    It models the stock price as moving up (u) or down (d) during each small time interval until expiration, forming a tree of possible outcomes.
+    The Binomial Tree Model provides a step-by-step, discrete-time framework for valuing options. It models the stock price as moving up (u) or down (d) during each small time interval until expiration, forming a tree of possible outcomes.
 
     ---
     ### Core Idea
