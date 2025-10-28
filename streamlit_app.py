@@ -60,17 +60,30 @@ st.markdown(
         margin-top: 25px;
     }
 
-    /* Force wrapping when small */
+    /* Allow wrapping when needed */
     [data-testid="stHorizontalBlock"] {
         flex-wrap: wrap !important;
     }
 
-    /* Make columns full-width stacked on mobile */
+    /* Make stacked layout clean on mobile */
     @media (max-width: 640px) {
+        [data-testid="stHorizontalBlock"] {
+            gap: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
         [data-testid="column"] {
             width: 100% !important;
             flex: 1 1 100% !important;
             display: block !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        /* Remove internal div spacing Streamlit adds */
+        [data-testid="column"] > div {
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
         }
     }
     </style>
