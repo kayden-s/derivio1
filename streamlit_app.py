@@ -54,6 +54,7 @@ Learn & Price Financial Options
 
 # --- TOP MODE SELECTOR ---
 mode = st.selectbox("Choose Mode", ["Learn", "Calculate"], index=0)
+st.markdown("---")
 
 # --- SIDEBAR MODEL SELECTION ---
 st.sidebar.markdown("### Pricing Model")
