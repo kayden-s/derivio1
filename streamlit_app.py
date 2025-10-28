@@ -8,6 +8,20 @@ import json
 
 st.set_page_config(page_title="Derivio")
 
+# --- GLOBAL FONT STYLE: SOURCE SANS PRO ---
+st.markdown(
+    """
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+    html, body, [class*="css"] {
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # --- ENUMS ---
 class OPTION_PRICING_MODEL(Enum):
     BLACK_SCHOLES = 'Black-Scholes Model'
@@ -44,10 +58,10 @@ st.markdown("""
 
 # --- HEADER ---
 st.markdown("""
-<div style="font-family:Arial; font-size:1.5rem; font-weight:700; margin-top:0; margin-bottom:0;">
+<div style="font-size:1.5rem; font-weight:700; margin-top:0; margin-bottom:0;">
 Derivio
 </div>
-<div style="font-family:Arial; font-size:2.7rem; font-weight:700; line-height:1.2; margin-top:0; margin-bottom:10px;">
+<div style="font-size:2.7rem; font-weight:700; line-height:1.2; margin-top:0; margin-bottom:10px;">
 Learn & Price Financial Options
 </div>
 """, unsafe_allow_html=True)
