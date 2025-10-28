@@ -199,7 +199,22 @@ def explain_binomial():
 
 # --- LEARN MODE ---
 if mode == "Learn":
-    st.info("Select a pricing model from the sidebar to begin learning.")
+    st.markdown(
+        """
+        <div style="
+            background-color: #59A9F1;
+            padding: 14px 18px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            font-size: 16px;
+            margin-top: 10px;
+            ">
+            💡 Select a pricing model from the sidebar to begin learning.
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
     if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
         explain_black_scholes()
     elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
