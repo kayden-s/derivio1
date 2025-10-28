@@ -53,9 +53,7 @@ Learn & Price Financial Options
 """, unsafe_allow_html=True)
 
 # --- TOP MODE SELECTOR ---
-st.markdown("---")
 mode = st.selectbox("Choose Mode", ["Learn", "Calculate"], index=0)
-st.markdown("---")
 
 # --- SIDEBAR MODEL SELECTION ---
 st.sidebar.markdown("### Pricing Model")
