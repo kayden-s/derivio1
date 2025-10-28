@@ -79,12 +79,12 @@ def explain_black_scholes():
 
     st.markdown(r"""
     Definitions:
-    - S₀: Current stock price  
-    - K: Strike price  
-    - t: Time to maturity (in years)  
-    - r: Annual risk-free interest rate  
-    - σ: Annualized volatility of returns  
-    - N(x): Cumulative distribution function of a standard normal variable  
+    - S₀ : Current stock price  
+    - K : Strike price  
+    - t : Time to maturity (in years)  
+    - r : Annual risk-free interest rate  
+    - σ : Annualized volatility of returns  
+    - N(x) : Cumulative distribution function of a standard normal variable  
 
     ---
     ### Intuition
