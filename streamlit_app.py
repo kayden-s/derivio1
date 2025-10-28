@@ -52,9 +52,17 @@ Learn & Price Financial Options
 </div>
 """, unsafe_allow_html=True)
 
-# --- SIDEBAR ---
-mode = st.sidebar.selectbox("Choose Mode", ["Learn", "Calculate"])
-pricing_method = st.sidebar.radio('Select Model', options=[m.value for m in OPTION_PRICING_MODEL])
+# --- TOP MODE SELECTOR ---
+st.markdown("---")
+mode = st.selectbox("Choose Mode", ["Learn", "Calculate"], index=0)
+st.markdown("---")
+
+# --- SIDEBAR MODEL SELECTION ---
+st.sidebar.markdown("### Pricing Model")
+pricing_method = st.sidebar.radio(
+    'Select Model',
+    options=[m.value for m in OPTION_PRICING_MODEL],
+)
 
 # --- EDUCATIONAL CONTENT ---
 def explain_black_scholes():
