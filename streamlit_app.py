@@ -48,7 +48,7 @@ st.markdown("""
 Derivio
 </div>
 <div style="font-family:Arial; font-size:2.7rem; font-weight:700; line-height:1.2; margin-top:0; margin-bottom:10px;">
-Options Pricing Calculator
+Learn & Price Financial Options
 </div>
 <div style="font-size:1.2rem; color:#555; margin-top:0; margin-bottom:20px;">
 Understand options pricing through interactive lessons and real data.
