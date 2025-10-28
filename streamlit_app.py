@@ -53,18 +53,8 @@ Learn & Price Financial Options
 """, unsafe_allow_html=True)
 
 # --- SIDEBAR ---
-if "mode" not in st.session_state:
-    st.session_state["mode"] = "Learn"
-
-mode = st.sidebar.selectbox(
-    "Choose Mode",
-    ["Learn", "Calculate"],
-    index=["Learn", "Calculate"].index(st.session_state["mode"])
-)
-pricing_method = st.sidebar.radio(
-    "Select Model",
-    options=[m.value for m in OPTION_PRICING_MODEL]
-)
+mode = st.sidebar.selectbox("Choose Mode", ["Learn", "Calculate"])
+pricing_method = st.sidebar.radio('Select Model', options=[m.value for m in OPTION_PRICING_MODEL])
 
 # --- EDUCATIONAL CONTENT ---
 def explain_black_scholes():
@@ -159,6 +149,7 @@ def explain_monte_carlo():
     Complex derivatives, exotic options, or when analytical models like Black-Scholes cannot be applied.
     """)
 
+
 def explain_binomial():
     st.subheader("Binomial Tree Model")
     st.markdown(r"""
@@ -206,21 +197,26 @@ def explain_binomial():
     American-style options or any scenario where early exercise and flexibility are important.
     """)
 
+# --- LEARN MODE ---
 if mode == "Learn":
-    st.markdown("""
-    <div style="
-        background-color: #E4F2FD;
-        padding: 14px 18px;
-        border-radius: 8px;
-        color: #59A9F1;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 1.3;
-        margin-top: 20px;
-        margin-bottom: 5px;">
-        Select a pricing model from the sidebar to begin learning.
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(
+        """
+        <div style="
+            background-color: #E4F2FD;
+            padding: 14px 18px;
+            border-radius: 8px;
+            color: #59A9F1;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 1.3;
+            margin-top: 20px;
+            margin-bottom: 5px;
+            ">
+            Select a pricing model from the sidebar to begin learning.
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
     if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
         explain_black_scholes()
@@ -231,29 +227,11 @@ if mode == "Learn":
 
     st.markdown("---")
     st.markdown("### Try It Yourself")
-    st.write("Switch to Calculate Mode in the sidebar to apply these models to real market data.")
-
-    # --- Go to Calculator Button ---
-    if st.button("Go to Calculator Mode", type="primary"):
-        st.session_state["mode"] = "Calculate"
-        st.rerun()  # <-- ✅ correct method in Streamlit 1.32+
+    st.write("Switch to Calculate Mode to apply these models to real market data.")
 
 # --- CALCULATE MODE ---
 elif mode == "Calculate":
-    st.markdown("## Option Calculator")
-
-    if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
-        calculate_black_scholes()
-    elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
-        calculate_monte_carlo()
-    elif pricing_method == OPTION_PRICING_MODEL.BINOMIAL.value:
-        calculate_binomial()
-
-    # --- Back to Learn Button ---
-    st.markdown("---")
-    if st.button("Back to Learn Mode"):
-        st.session_state["mode"] = "Learn"
-        st.rerun()
+    st.subheader(f'Pricing Method: {pricing_method}')
     
     # =====================
     # BLACK-SCHOLES MODEL
@@ -593,6 +571,3 @@ elif mode == "Calculate":
                     st.error("Unable to proceed with calculations due to data fetching error.")
             except Exception as e:
                 st.error(f"Error during calculation: {str(e)}")
-
-
-
