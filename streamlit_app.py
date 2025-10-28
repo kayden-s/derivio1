@@ -505,9 +505,10 @@ elif mode == "Calculate":
                     
                     col1, col2, spacer = st.columns([1, 1, 2])
                     with col1:
+                        st.markdown("<div style='margin-top:10px;'></div>", unsafe_allow_html=True)
                         st.metric("Call Option Price", f"${call_option_price:.2f}")
                     with col2:
-                        st.markdown("<div style='margin-top:20px;'></div>", unsafe_allow_html=True)
+                        st.markdown("<div style='margin-top:10px;'></div>", unsafe_allow_html=True)
                         st.metric("Put Option Price", f"${put_option_price:.2f}")
                     
                     st.markdown(
@@ -619,9 +620,10 @@ elif mode == "Calculate":
                     
                     col1, col2, spacer = st.columns([1, 1, 2])
                     with col1:
+                        st.markdown("<div style='margin-top:10px;'></div>", unsafe_allow_html=True)
                         st.metric("Call Option Price", f"${call_option_price:.2f}")
                     with col2:
-                        st.markdown("<div style='margin-top:20px;'></div>", unsafe_allow_html=True)
+                        st.markdown("<div style='margin-top:10px;'></div>", unsafe_allow_html=True)
                         st.metric("Put Option Price", f"${put_option_price:.2f}")
                     
                     st.markdown(
