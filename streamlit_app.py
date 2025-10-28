@@ -79,12 +79,12 @@ def explain_black_scholes():
 
     st.markdown(r"""
     Definitions:
-    \( S_0 \): Current stock price  
-    \( K \): Strike price  
-    \( t \): Time to maturity (in years)  
-    \( r \): Annual risk-free interest rate  
-    \( \sigma \): Annualized volatility of returns  
-    \( N(x) \): Cumulative distribution function of a standard normal variable  
+    - \( S_0 \): Current stock price  
+    - \( K \): Strike price  
+    - \( t \): Time to maturity (in years)  
+    - \( r \): Annual risk-free interest rate  
+    - \( \sigma \): Annualized volatility of returns  
+    - \( N(x) \): Cumulative distribution function of a standard normal variable  
 
     ---
     ### Intuition
@@ -94,9 +94,9 @@ def explain_black_scholes():
 
     ---
     ### Real-World Application
-    Commonly used by traders and analysts to compare market prices to theoretical values.  
-    Helps detect overvalued or undervalued options.  
-    Useful for risk management and derivatives trading in equity, forex, and commodities markets.
+    - Commonly used by traders and analysts to compare market prices to theoretical values  
+    - Helps detect overvalued or undervalued options  
+    - Useful for risk management and derivatives trading in equity, forex, and commodities markets  
 
     ---
     Best For:  
@@ -123,11 +123,11 @@ def explain_monte_carlo():
 
     st.markdown(r"""
     Definitions:
-    \( N \): Number of simulations  
-    \( S_T^{(i)} \): Simulated price at expiration for the i-th path  
-    \( r \): Annual risk-free rate  
-    \( t \): Time to maturity (in years)  
-    \( K \): Strike price  
+    - \( N \): Number of simulations  
+    - \( S_T^{(i)} \): Simulated price at expiration for the i-th path  
+    - \( r \): Annual risk-free rate  
+    - \( t \): Time to maturity (in years)  
+    - \( K \): Strike price  
 
     ---
     ### Intuition
@@ -137,14 +137,14 @@ def explain_monte_carlo():
 
     ---
     ### Advantages
-    Works with any payoff structure, including exotic or path-dependent options such as Asian or barrier options.  
-    Can incorporate changing volatility, interest rates, or dividends.  
-    Scales easily with computational power.
+    - Works with any payoff structure, including exotic or path-dependent options such as Asian or barrier options  
+    - Can incorporate changing volatility, interest rates, or dividends  
+    - Scales easily with computational power  
 
     ---
     ### Limitations
-    Computationally intensive, especially with many simulations.  
-    Accuracy depends on the number of simulations, with more runs improving precision.
+    - Computationally intensive, especially with many simulations  
+    - Accuracy depends on the number of simulations, with more runs improving precision  
 
     ---
     Best For:  
@@ -172,12 +172,12 @@ def explain_binomial():
 
     st.markdown(r"""
     Definitions:
-    \( C_u \): Option value after an upward move  
-    \( C_d \): Option value after a downward move  
-    \( u \): Upward price multiplier  
-    \( d \): Downward price multiplier  
-    \( r \): Annual risk-free rate  
-    \( t \): Time step length  
+    - \( C_u \): Option value after an upward move  
+    - \( C_d \): Option value after a downward move  
+    - \( u \): Upward price multiplier  
+    - \( d \): Downward price multiplier  
+    - \( r \): Annual risk-free rate  
+    - \( t \): Time step length  
 
     ---
     ### Intuition
@@ -186,14 +186,14 @@ def explain_binomial():
 
     ---
     ### Advantages
-    Can model American options that allow early exercise, unlike Black-Scholes.  
-    Intuitive and adaptable to dividends, changing volatility, or discrete events.  
-    Accuracy increases with the number of time steps.
+    - Can model American options that allow early exercise, unlike Black-Scholes  
+    - Intuitive and adaptable to dividends, changing volatility, or discrete events  
+    - Accuracy increases with the number of time steps  
 
     ---
     ### Limitations
-    Slower than closed-form models for very large trees.  
-    Requires many steps to approximate continuous processes accurately.
+    - Slower than closed-form models for very large trees  
+    - Requires many steps to approximate continuous processes accurately  
 
     ---
     Best For:  
