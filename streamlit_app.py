@@ -218,6 +218,34 @@ if mode == "Learn":
         unsafe_allow_html=True
     )
 
+    # --- Go to Calculator Button ---
+    go_calc = st.markdown(
+        """
+        <style>
+        .calc-btn {
+            background-color: #59A9F1;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 15px;
+            font-weight: 500;
+            text-align: center;
+            display: inline-block;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .calc-btn:hover {
+            background-color: #3C91E6;
+            transform: translateY(-1px);
+        }
+        </style>
+        <button class="calc-btn" onclick="window.location.reload()">Go to Calculator Mode</button>
+        """,
+        unsafe_allow_html=True
+    )
+
     if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
         explain_black_scholes()
     elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
