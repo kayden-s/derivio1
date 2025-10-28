@@ -59,10 +59,14 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-mode = st.selectbox("Choose Mode", ["Calculate", "Learn"], index=0)
+
+col1, col2, col3 = st.columns([1, 2, 2])  # 1/3 width (1 out of total 5 parts)
+with col1:
+    mode = st.selectbox("Choose Mode", ["Calculate", "Learn"], index=0)
+
 st.markdown("---")
 
-# --- MODEL WARNING ---
+# --- WARNING ---
 st.markdown(
     """
     <div style="
