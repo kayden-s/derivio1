@@ -202,19 +202,21 @@ if mode == "Learn":
     st.markdown(
         """
         <div style="
-            background-color: #59A9F1;
+            background-color: #E4F2FD;
             padding: 14px 18px;
             border-radius: 8px;
-            color: white;
+            color: #59A9F1;
             font-weight: 500;
             font-size: 16px;
             margin-top: 10px;
+            border-left: 5px solid #59A9F1;
             ">
-            💡 Select a pricing model from the sidebar to begin learning.
+            Select a pricing model from the sidebar to begin learning.
         </div>
         """,
         unsafe_allow_html=True
     )
+
     if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
         explain_black_scholes()
     elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
