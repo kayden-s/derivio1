@@ -208,7 +208,7 @@ if mode == "Learn":
         explain_binomial()
 
     st.markdown("---")
-    st.markdown("### 🧠 Try It Yourself")
+    st.markdown("### Try It Yourself")
     st.write("Switch to **Calculate Mode** in the sidebar to apply these models to real market data.")
 
 # --- CALCULATE MODE ---
