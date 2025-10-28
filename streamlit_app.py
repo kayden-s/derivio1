@@ -217,7 +217,6 @@ if mode == "Learn":
 # --- CALCULATE MODE ---
 elif mode == "Calculate":
     st.subheader(f'Pricing Method: {pricing_method}')
-    st.caption("Use this calculator to apply theoretical models to live market data.")
     
     # =====================
     # BLACK-SCHOLES MODEL
