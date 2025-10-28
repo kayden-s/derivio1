@@ -53,6 +53,12 @@ Learn & Price Financial Options
 """, unsafe_allow_html=True)
 
 # --- TOP MODE SELECTOR ---
+st.markdown(
+    """
+    <div style="margin-top: 25px;"></div>
+    """,
+    unsafe_allow_html=True
+)
 mode = st.selectbox("Choose Mode", ["Learn", "Calculate"], index=0)
 st.markdown("---")
 
