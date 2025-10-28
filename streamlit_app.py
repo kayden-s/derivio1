@@ -240,7 +240,7 @@ if mode == "Learn":
 
     st.markdown("---")
     st.markdown("### Try It Yourself")
-    st.write("Switch to Calculate Mode to apply these models to real market data.")
+    st.write("Switch to the Calculate mode to apply these models to real market data.")
 
 # --- CALCULATE MODE ---
 elif mode == "Calculate":
