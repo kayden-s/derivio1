@@ -79,11 +79,11 @@ def explain_black_scholes():
 
     st.markdown(r"""
     Definitions:
-    - S₀ : Current stock price  
-    - K : Strike price  
-    - t : Time to maturity (in years)  
-    - r : Annual risk-free interest rate  
-    - σ : Annualized volatility of returns  
+    - S₀: Current stock price  
+    - K: Strike price  
+    - t: Time to maturity (in years)  
+    - r: Annual risk-free interest rate  
+    - σ: Annualized volatility of returns  
     - N(x) : Cumulative distribution function of a standard normal variable  
 
     ---
@@ -123,11 +123,11 @@ def explain_monte_carlo():
 
     st.markdown(r"""
     Definitions:
-    - \( N \): Number of simulations  
-    - \( S_T^{(i)} \): Simulated price at expiration for the i-th path  
-    - \( r \): Annual risk-free rate  
-    - \( t \): Time to maturity (in years)  
-    - \( K \): Strike price  
+    - N: Number of simulations  
+    - Sᵀ⁽ⁱ⁾: Simulated price at expiration for the i-th path  
+    - r: Annual risk-free rate  
+    - t: Time to maturity (in years)  
+    - K: Strike price  
 
     ---
     ### Intuition
@@ -172,12 +172,12 @@ def explain_binomial():
 
     st.markdown(r"""
     Definitions:
-    - \( C_u \): Option value after an upward move  
-    - \( C_d \): Option value after a downward move  
-    - \( u \): Upward price multiplier  
-    - \( d \): Downward price multiplier  
-    - \( r \): Annual risk-free rate  
-    - \( t \): Time step length  
+    - Cᵤ: Option value after an upward move  
+    - C_d: Option value after a downward move  
+    - u: Upward price multiplier  
+    - d: Downward price multiplier  
+    - r: Annual risk-free rate  
+    - t: Time step length  
 
     ---
     ### Intuition
