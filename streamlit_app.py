@@ -62,7 +62,7 @@ mode = st.sidebar.selectbox(
     index=["Learn", "Calculate"].index(st.session_state["mode"])
 )
 pricing_method = st.sidebar.radio(
-    'Select Model',
+    "Select Model",
     options=[m.value for m in OPTION_PRICING_MODEL]
 )
 
@@ -206,9 +206,6 @@ def explain_binomial():
     American-style options or any scenario where early exercise and flexibility are important.
     """)
 
-# =====================
-# LEARN MODE
-# =====================
 if mode == "Learn":
     st.markdown("""
     <div style="
@@ -220,8 +217,7 @@ if mode == "Learn":
         font-size: 16px;
         line-height: 1.3;
         margin-top: 20px;
-        margin-bottom: 5px;
-        ">
+        margin-bottom: 5px;">
         Select a pricing model from the sidebar to begin learning.
     </div>
     """, unsafe_allow_html=True)
@@ -237,37 +233,27 @@ if mode == "Learn":
     st.markdown("### Try It Yourself")
     st.write("Switch to Calculate Mode in the sidebar to apply these models to real market data.")
 
+    # --- Go to Calculator Button ---
     if st.button("Go to Calculator Mode", type="primary"):
         st.session_state["mode"] = "Calculate"
-        st.experimental_rerun()
+        st.rerun()  # <-- ✅ correct method in Streamlit 1.32+
 
-
-# =====================
-# CALCULATE MODE
-# =====================
+# --- CALCULATE MODE ---
 elif mode == "Calculate":
+    st.markdown("## Option Calculator")
 
-    st.markdown("### Option Pricing Calculator")
+    if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
+        calculate_black_scholes()
+    elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
+        calculate_monte_carlo()
+    elif pricing_method == OPTION_PRICING_MODEL.BINOMIAL.value:
+        calculate_binomial()
 
-    st.markdown("""
-    <div style="
-        background-color: #E4F2FD;
-        padding: 12px 16px;
-        border-radius: 8px;
-        color: #59A9F1;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 1.3;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        ">
-        Select a model in the sidebar to begin calculating.
-    </div>
-    """, unsafe_allow_html=True)
-
-    if st.button("⬅ Back to Learn Mode"):
+    # --- Back to Learn Button ---
+    st.markdown("---")
+    if st.button("Back to Learn Mode"):
         st.session_state["mode"] = "Learn"
-        st.experimental_rerun()
+        st.rerun()
     
     # =====================
     # BLACK-SCHOLES MODEL
