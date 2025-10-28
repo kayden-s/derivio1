@@ -230,32 +230,9 @@ if mode == "Learn":
     st.write("Switch to Calculate Mode in the sidebar to apply these models to real market data.")
 
     # --- Go to Calculator Button ---
-    go_calc = st.markdown(
-        """
-        <style>
-        .calc-btn {
-            background-color: #59A9F1;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: none;
-            font-size: 15px;
-            font-weight: 500;
-            text-align: center;
-            display: inline-block;
-            margin-top: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-        }
-        .calc-btn:hover {
-            background-color: #3C91E6;
-            transform: translateY(-1px);
-        }
-        </style>
-        <button class="calc-btn" onclick="window.location.reload()">Go to Calculator Mode</button>
-        """,
-        unsafe_allow_html=True
-    )
+    if st.button("Go to Calculator Mode", type="primary"):
+        st.session_state["mode"] = "Calculate"
+        st.experimental_rerun()
 
 # --- CALCULATE MODE ---
 elif mode == "Calculate":
