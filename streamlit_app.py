@@ -52,7 +52,7 @@ Learn & Price Financial Options
 </div>
 """, unsafe_allow_html=True)
 
-# --- TOP MODE SELECTOR ---
+# --- MODE SELECTOR ---
 st.markdown(
     """
     <div style="margin-top: 25px;"></div>
@@ -62,6 +62,7 @@ st.markdown(
 mode = st.selectbox("Choose Mode", ["Calculate", "Learn"], index=0)
 st.markdown("---")
 
+# --- MODEL WARNING ---
 st.markdown(
     """
     <div style="
@@ -75,7 +76,7 @@ st.markdown(
         margin-top: 20px;
         margin-bottom: 5px;
         ">
-        Select a pricing model from the sidebar to begin learning.
+        Select a pricing model from the sidebar.
     </div>
     """,
     unsafe_allow_html=True
