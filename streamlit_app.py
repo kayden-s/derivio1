@@ -107,8 +107,7 @@ def explain_black_scholes():
 def explain_monte_carlo():
     st.subheader("Monte Carlo Simulation")
     st.markdown(r"""
-    The Monte Carlo Simulation is a flexible, computational approach used to estimate option prices through random sampling.  
-    Instead of relying on a single formula, it simulates thousands of potential future paths of the stock price to calculate an average expected payoff.
+    The Monte Carlo Simulation is a flexible, computational approach used to estimate option prices through random sampling. Instead of relying on a single formula, it simulates thousands of potential future paths of the stock price to calculate an average expected payoff.
 
     ---
     ### Core Idea
