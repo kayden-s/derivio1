@@ -61,14 +61,14 @@ def explain_black_scholes():
     st.subheader("Understanding the Black-Scholes Model")
     st.markdown(r"""
     The Black-Scholes Model (BSM) is one of the most important concepts in modern finance.  
-    It provides a closed-form mathematical formula to estimate the fair value of European call and put options — contracts that give the holder the right (but not the obligation) to buy or sell an asset at a predetermined price.
+    It provides a closed-form mathematical formula to estimate the fair value of European call and put options, which are contracts that give the holder the right (but not the obligation) to buy or sell an asset at a predetermined price.
 
     ---
     ### Core Idea
     The model assumes that:
-    - The stock price follows a lognormal distribution (prices can’t go below zero).
+    - The stock price follows a lognormal distribution (prices cannot go below zero).
     - Volatility and the risk-free rate remain constant over time.
-    - The market is frictionless — no transaction costs or taxes.
+    - The market is frictionless, with no transaction costs or taxes.
     - The option can only be exercised at expiration (European-style).
     """)
 
@@ -77,15 +77,15 @@ def explain_black_scholes():
     st.latex(r"C = S_0 N(d_1) - K e^{-rt} N(d_2)")
     st.latex(r"d_1 = \frac{\ln(S_0 / K) + (r + \frac{\sigma^2}{2})t}{\sigma \sqrt{t}}, \quad d_2 = d_1 - \sigma \sqrt{t}")
 
-    st.markdown(r"""
-    Definitions:
-    - \( S_0 \): Current stock price  
-    - \( K \): Strike price  
-    - \( t \): Time to maturity (in years)  
-    - \( r \): Annual risk-free interest rate  
-    - \( \sigma \): Annualized volatility of returns  
-    - \( N(x) \): Cumulative distribution function of a standard normal variable  
+    st.markdown("### Definitions")
+    st.latex(r"S_0 : \text{ Current stock price }")
+    st.latex(r"K : \text{ Strike price }")
+    st.latex(r"t : \text{ Time to maturity (in years) }")
+    st.latex(r"r : \text{ Annual risk-free interest rate }")
+    st.latex(r"\sigma : \text{ Annualized volatility of returns }")
+    st.latex(r"N(x) : \text{ Cumulative distribution function of a standard normal variable }")
 
+    st.markdown(r"""
     ---
     ### Intuition
     The model calculates what an option should cost based on how risky the stock is and how much time remains until expiration.
@@ -94,8 +94,8 @@ def explain_black_scholes():
 
     ---
     ### Real-World Application
-    - Commonly used by traders and analysts to compare market prices to theoretical values.  
-    - Helps detect overvalued or undervalued options.  
+    - Used by traders and analysts to compare market prices to theoretical values.  
+    - Helps identify overvalued or undervalued options.  
     - Useful for risk management and derivatives trading in equity, forex, and commodities markets.
 
     ---
@@ -108,7 +108,7 @@ def explain_monte_carlo():
     st.subheader("Monte Carlo Simulation")
     st.markdown(r"""
     The Monte Carlo Simulation is a flexible, computational approach used to estimate option prices through random sampling.  
-    Instead of relying on a single formula, it simulates thousands of potential future paths of the stock price to calculate an average expected payoff.
+    Instead of relying on a single formula, it simulates many potential future paths of the stock price to calculate an average expected payoff.
 
     ---
     ### Core Idea
@@ -121,32 +121,32 @@ def explain_monte_carlo():
     st.markdown("### Simplified Formula")
     st.latex(r"C = e^{-rt} \frac{1}{N} \sum_{i=1}^{N} \max(S_T^{(i)} - K, 0)")
 
-    st.markdown(r"""
-    Where:
-    - \( N \): Number of simulations  
-    - \( S_T^{(i)} \): Simulated price at expiration for the i-th path  
-    - \( r, t, K \): Same parameters as before  
+    st.markdown("### Definitions")
+    st.latex(r"N : \text{ Number of simulations }")
+    st.latex(r"S_T^{(i)} : \text{ Simulated price at expiration for the } i\text{-th path }")
+    st.latex(r"r, t, K : \text{ Same parameters as before }")
 
+    st.markdown(r"""
     ---
     ### Intuition
-    Think of it as running a “what-if” experiment thousands of times.  
+    Think of it as running a "what-if" experiment many times.  
     - Each simulation represents one possible market future.  
     - Averaging them smooths out randomness to reveal a probabilistic fair price.
 
     ---
     ### Advantages
-    - Works with any payoff structure, including exotic or path-dependent options (like Asian or barrier options).  
+    - Works with any payoff structure, including exotic or path-dependent options such as Asian or barrier options.  
     - Can incorporate changing volatility, interest rates, or dividends.  
     - Scales easily with computational power.
 
     ---
     ### Limitations
-    - Computationally intensive (especially with many simulations).  
-    - Accuracy depends on the number of simulations — more runs improve precision.
+    - Computationally intensive, especially with many simulations.  
+    - Accuracy depends on the number of simulations; more runs improve precision.
 
     ---
     Best For:  
-    Complex derivatives, exotic options, or when analytical models like Black-Scholes can’t be applied.
+    Complex derivatives, exotic options, or when analytical models such as Black-Scholes cannot be applied.
     """)
 
 
@@ -168,12 +168,12 @@ def explain_binomial():
     st.latex(r"p = \frac{e^{rt} - d}{u - d}")
     st.latex(r"C = e^{-rt} [pC_u + (1 - p)C_d]")
 
-    st.markdown(r"""
-    Where:
-    - \( C_u, C_d \): Option values after an up or down move  
-    - \( u, d \): Multiplicative up/down factors  
-    - \( r, t \): Risk-free rate and time step length  
+    st.markdown("### Definitions")
+    st.latex(r"C_u, C_d : \text{ Option values after an up or down move }")
+    st.latex(r"u, d : \text{ Multiplicative up and down factors }")
+    st.latex(r"r, t : \text{ Risk-free rate and time step length }")
 
+    st.markdown(r"""
     ---
     ### Intuition
     The model works like a decision tree:
