@@ -66,14 +66,16 @@ st.markdown(
         flex-wrap: wrap !important;
     }
 
-    /* Collapse the 2nd column once layout overflows (≤640px) */
+    /* Completely collapse the 2nd column when screen ≤ 640px */
     @media (max-width: 640px) {
-        [data-testid="column"]:nth-child(2) {
+        [data-testid="column"]:nth-child(2),
+        [data-testid="column"]:nth-child(2) > div {
+            display: none !important;
             height: 0 !important;
             overflow: hidden !important;
             padding: 0 !important;
             margin: 0 !important;
-            display: none !important;
+            visibility: hidden !important;
         }
     }
     </style>
