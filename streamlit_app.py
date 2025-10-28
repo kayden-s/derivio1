@@ -60,163 +60,149 @@ pricing_method = st.sidebar.radio('Select Model', options=[m.value for m in OPTI
 def explain_black_scholes():
     st.subheader("Understanding the Black-Scholes Model")
     st.markdown(r"""
-The Black-Scholes Model (BSM) is one of the most important concepts in modern finance.  
-It provides a closed-form mathematical formula to estimate the fair value of European call and put options, which give the holder the right (but not the obligation) to buy or sell an asset at a predetermined price.
+    The Black-Scholes Model (BSM) is one of the most important concepts in modern finance.  
+    It provides a closed-form mathematical formula to estimate the fair value of European call and put options, which give the holder the right (but not the obligation) to buy or sell an asset at a predetermined price.
 
----
-
-### **Core Idea**
-The model assumes that:
-- The stock price follows a lognormal distribution (prices cannot go below zero)
-- Volatility and the risk-free rate remain constant over time
-- The market is frictionless, meaning there are no transaction costs or taxes
-- The option can only be exercised at expiration (European-style)
-""")
+    ---
+    ### Core Idea
+    The model assumes that:
+    - The stock price follows a lognormal distribution (prices cannot go below zero)
+    - Volatility and the risk-free rate remain constant over time
+    - The market is frictionless, meaning there are no transaction costs or taxes
+    - The option can only be exercised at expiration (European-style)
+    """)
 
     st.markdown("---")
-    st.markdown("### **Formula (Call Option)**")
+    st.markdown("### Formula (Call Option)")
     st.latex(r"C = S_0 N(d_1) - K e^{-rt} N(d_2)")
     st.latex(r"d_1 = \frac{\ln(S_0 / K) + (r + \frac{\sigma^2}{2})t}{\sigma \sqrt{t}}, \quad d_2 = d_1 - \sigma \sqrt{t}")
 
     st.markdown(r"""
-**Definitions:**
-- $S_0$: Current stock price  
-- $K$: Strike price  
-- $t$: Time to maturity (in years)  
-- $r$: Annual risk-free interest rate  
-- $\sigma$: Annualized volatility of returns  
-- $N(x)$: Cumulative distribution function of a standard normal variable  
+    **Definitions:**
+    - **$S_0$**: Current stock price  
+    - **$K$**: Strike price  
+    - **$t$**: Time to maturity (in years)  
+    - **$r$**: Annual risk-free interest rate  
+    - **$\sigma$**: Annualized volatility of returns  
+    - **$N(x)$**: Cumulative distribution function of a standard normal variable  
 
----
+    ---
+    ### Intuition
+    The model calculates what an option should cost based on how risky the stock is and how much time remains until expiration.  
+    If volatility or time increase, the option becomes more valuable.  
+    If interest rates rise, call options increase slightly in value, while puts decrease.
 
-### **Intuition**
-The model calculates what an option should cost based on how risky the stock is and how much time remains until expiration.  
-If volatility or time increase, the option becomes more valuable.  
-If interest rates rise, call options increase slightly in value, while puts decrease.
+    ---
+    ### Real-World Application
+    - Commonly used by traders and analysts to compare market prices to theoretical values  
+    - Helps detect overvalued or undervalued options  
+    - Useful for risk management and derivatives trading in equity, forex, and commodities markets  
 
----
-
-### **Real-World Application**
-- Commonly used by traders and analysts to compare market prices to theoretical values  
-- Helps detect overvalued or undervalued options  
-- Useful for risk management and derivatives trading in equity, forex, and commodities markets  
-
----
-
-**Best For:**  
-European-style options and markets with relatively stable volatility and no early exercise.
-""")
+    ---
+    **Best For:**  
+    European-style options and markets with relatively stable volatility and no early exercise.
+    """)
 
 
 def explain_monte_carlo():
     st.subheader("Monte Carlo Simulation")
     st.markdown(r"""
-The Monte Carlo Simulation is a flexible, computational approach used to estimate option prices through random sampling.  
-Instead of relying on a single formula, it simulates thousands of potential future paths of the stock price to calculate an average expected payoff.
+    The Monte Carlo Simulation is a flexible, computational approach used to estimate option prices through random sampling.  
+    Instead of relying on a single formula, it simulates thousands of potential future paths of the stock price to calculate an average expected payoff.
 
----
-
-### **Core Idea**
-- Simulate how the stock price could evolve over time using randomized returns that follow a statistical distribution (often normal)  
-- For each simulated path, calculate the payoff of the option at expiration  
-- Average all payoffs and discount them back to the present using the risk-free rate
-""")
+    ---
+    ### Core Idea
+    - Simulate how the stock price could evolve over time using randomized returns that follow a statistical distribution (often normal)  
+    - For each simulated path, calculate the payoff of the option at expiration  
+    - Average all payoffs and discount them back to the present using the risk-free rate
+    """)
 
     st.markdown("---")
-    st.markdown("### **Simplified Formula**")
+    st.markdown("### Simplified Formula")
     st.latex(r"C = e^{-rt} \frac{1}{N} \sum_{i=1}^{N} \max(S_T^{(i)} - K, 0)")
 
     st.markdown(r"""
-**Definitions:**
-- $N$: Number of simulations  
-- $S_T^{(i)}$: Simulated price at expiration for the i-th path  
-- $r$: Annual risk-free rate  
-- $t$: Time to maturity (in years)  
-- $K$: Strike price  
+    **Definitions:**
+    - **$N$**: Number of simulations  
+    - **$S_T^{(i)}$**: Simulated price at expiration for the i-th path  
+    - **$r$**: Annual risk-free rate  
+    - **$t$**: Time to maturity (in years)  
+    - **$K$**: Strike price  
 
----
+    ---
+    ### Intuition
+    Think of it as running a “what-if” experiment thousands of times.  
+    Each simulation represents one possible market future.  
+    Averaging them smooths out randomness to reveal a probabilistic fair price.
 
-### **Intuition**
-Think of it as running a “what-if” experiment thousands of times.  
-Each simulation represents one possible market future.  
-Averaging them smooths out randomness to reveal a probabilistic fair price.
+    ---
+    ### Advantages
+    - Works with any payoff structure, including exotic or path-dependent options such as Asian or barrier options  
+    - Can incorporate changing volatility, interest rates, or dividends  
+    - Scales easily with computational power  
 
----
+    ---
+    ### Limitations
+    - Computationally intensive, especially with many simulations  
+    - Accuracy depends on the number of simulations, with more runs improving precision  
 
-### **Advantages**
-- Works with any payoff structure, including exotic or path-dependent options such as Asian or barrier options  
-- Can incorporate changing volatility, interest rates, or dividends  
-- Scales easily with computational power  
-
----
-
-### **Limitations**
-- Computationally intensive, especially with many simulations  
-- Accuracy depends on the number of simulations, with more runs improving precision  
-
----
-
-**Best For:**  
-Complex derivatives, exotic options, or when analytical models like Black-Scholes cannot be applied.
-""")
+    ---
+    **Best For:**  
+    Complex derivatives, exotic options, or when analytical models like Black-Scholes cannot be applied.
+    """)
 
 
 def explain_binomial():
     st.subheader("Binomial Tree Model")
     st.markdown(r"""
-The Binomial Tree Model provides a step-by-step, discrete-time framework for valuing options.  
-It models the stock price as moving up (u) or down (d) during each small time interval until expiration, forming a tree of possible outcomes.
+    The Binomial Tree Model provides a step-by-step, discrete-time framework for valuing options.  
+    It models the stock price as moving up (u) or down (d) during each small time interval until expiration, forming a tree of possible outcomes.
 
----
-
-### **Core Idea**
-- Each time step represents a possible price change  
-- At every node, the stock either increases by u or decreases by d  
-- The option value is calculated backward from expiration to the present using the risk-neutral probability
-""")
+    ---
+    ### Core Idea
+    - Each time step represents a possible price change  
+    - At every node, the stock either increases by u or decreases by d  
+    - The option value is calculated backward from expiration to the present using the risk-neutral probability
+    """)
 
     st.markdown("---")
-    st.markdown("### **Key Formulas**")
+    st.markdown("### Key Formulas")
     st.latex(r"p = \frac{e^{rt} - d}{u - d}")
     st.latex(r"C = e^{-rt} [pC_u + (1 - p)C_d]")
 
     st.markdown(r"""
-**Definitions:**
-- $C_u$: Option value after an upward move  
-- $C_d$: Option value after a downward move  
-- $u$: Upward price multiplier  
-- $d$: Downward price multiplier  
-- $r$: Annual risk-free rate  
-- $t$: Time step length  
+    **Definitions:**
+    - **$C_u$**: Option value after an upward move  
+    - **$C_d$**: Option value after a downward move  
+    - **$u$**: Upward price multiplier  
+    - **$d$**: Downward price multiplier  
+    - **$r$**: Annual risk-free rate  
+    - **$t$**: Time step length  
 
----
+    ---
+    ### Intuition
+    The model works like a decision tree.  
+    It simulates all possible paths the stock might take, computes the option value at the end of each branch, and works backward using probabilities to find today’s fair price.
 
-### **Intuition**
-The model works like a decision tree.  
-It simulates all possible paths the stock might take, computes the option value at the end of each branch, and works backward using probabilities to find today’s fair price.
+    ---
+    ### Advantages
+    - Can model American options that allow early exercise, unlike Black-Scholes  
+    - Intuitive and adaptable to dividends, changing volatility, or discrete events  
+    - Accuracy increases with the number of time steps  
 
----
+    ---
+    ### Limitations
+    - Slower than closed-form models for very large trees  
+    - Requires many steps to approximate continuous processes accurately  
 
-### **Advantages**
-- Can model American options that allow early exercise, unlike Black-Scholes  
-- Intuitive and adaptable to dividends, changing volatility, or discrete events  
-- Accuracy increases with the number of time steps  
-
----
-
-### **Limitations**
-- Slower than closed-form models for very large trees  
-- Requires many steps to approximate continuous processes accurately  
-
----
-
-**Best For:**  
-American-style options or any scenario where early exercise and flexibility are important.
-""")
+    ---
+    **Best For:**  
+    American-style options or any scenario where early exercise and flexibility are important.
+    """)
 
 # --- LEARN MODE ---
 if mode == "Learn":
-    st.info("📖 Select a pricing model from the sidebar to begin learning.")
+    st.info("Select a pricing model from the sidebar to begin learning.")
     if pricing_method == OPTION_PRICING_MODEL.BLACK_SCHOLES.value:
         explain_black_scholes()
     elif pricing_method == OPTION_PRICING_MODEL.MONTE_CARLO.value:
@@ -226,11 +212,11 @@ if mode == "Learn":
 
     st.markdown("---")
     st.markdown("### Try It Yourself")
-    st.write("Switch to **Calculate Mode** in the sidebar to apply these models to real market data.")
+    st.write("Switch to Calculate Mode in the sidebar to apply these models to real market data.")
 
 # --- CALCULATE MODE ---
 elif mode == "Calculate":
-    st.subheader(f'💻 Pricing Method: {pricing_method}')
+    st.subheader(f'Pricing Method: {pricing_method}')
     st.caption("Use this calculator to apply theoretical models to live market data.")
     
     # =====================
