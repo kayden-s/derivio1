@@ -6,7 +6,6 @@ from option_pricing import BlackScholesModel, MonteCarloPricing, BinomialTreeMod
 import matplotlib.pyplot as plt
 import json
 
-
 st.set_page_config(
     page_title="Derivio",
 )
@@ -41,7 +40,7 @@ st.markdown(
         Derivio
     </div>
     <div style="font-family: 'Arial', sans-serif; font-size: 2.7rem; font-weight: 700; line-height: 1.2; margin-bottom: 25px;">
-        Option Pricing Calculator
+        Options Pricing Calculator
     </div>
     """,
     unsafe_allow_html=True
