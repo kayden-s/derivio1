@@ -159,7 +159,6 @@ def explain_monte_carlo():
     Complex derivatives, exotic options, or when analytical models like Black-Scholes cannot be applied.
     """)
 
-
 def explain_binomial():
     st.subheader("Binomial Tree Model")
     st.markdown(r"""
@@ -207,7 +206,9 @@ def explain_binomial():
     American-style options or any scenario where early exercise and flexibility are important.
     """)
 
-# --- LEARN MODE ---
+# =====================
+# LEARN MODE
+# =====================
 if mode == "Learn":
     st.markdown("""
     <div style="
@@ -236,12 +237,37 @@ if mode == "Learn":
     st.markdown("### Try It Yourself")
     st.write("Switch to Calculate Mode in the sidebar to apply these models to real market data.")
 
-    # --- Go to Calculator Button ---
-    go_to_calc = st.button("Go to Calculator Mode", type="primary")
-
-    if go_to_calc:
+    if st.button("Go to Calculator Mode", type="primary"):
         st.session_state["mode"] = "Calculate"
-        st.experimental_rerun()  # safe call
+        st.experimental_rerun()
+
+
+# =====================
+# CALCULATE MODE
+# =====================
+elif mode == "Calculate":
+
+    st.markdown("### Option Pricing Calculator")
+
+    st.markdown("""
+    <div style="
+        background-color: #E4F2FD;
+        padding: 12px 16px;
+        border-radius: 8px;
+        color: #59A9F1;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.3;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        ">
+        Select a model in the sidebar to begin calculating.
+    </div>
+    """, unsafe_allow_html=True)
+
+    if st.button("⬅ Back to Learn Mode"):
+        st.session_state["mode"] = "Learn"
+        st.experimental_rerun()
     
     # =====================
     # BLACK-SCHOLES MODEL
