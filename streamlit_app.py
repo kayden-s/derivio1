@@ -53,7 +53,10 @@ Learn & Price Financial Options
 """, unsafe_allow_html=True)
 
 # --- SIDEBAR ---
-mode = st.sidebar.selectbox("Choose Mode", ["Learn", "Calculate"])
+if "mode" not in st.session_state:
+    st.session_state["mode"] = "Learn"
+
+mode = st.sidebar.selectbox("Choose Mode", ["Learn", "Calculate"], index=["Learn", "Calculate"].index(st.session_state["mode"]))
 pricing_method = st.sidebar.radio('Select Model', options=[m.value for m in OPTION_PRICING_MODEL])
 
 # --- EDUCATIONAL CONTENT ---
