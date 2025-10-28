@@ -59,7 +59,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-mode = st.selectbox("Choose Mode", ["Learn", "Calculate"], index=0)
+mode = st.selectbox("Choose Mode", ["Calculate", "Learn"], index=0)
 st.markdown("---")
 
 # --- SIDEBAR MODEL SELECTION ---
