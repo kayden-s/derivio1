@@ -55,11 +55,37 @@ Learn & Price Financial Options
 # --- MODE SELECTOR ---
 st.markdown(
     """
-    <div style="margin-top: 25px;"></div>
+    <style>
+    /* Adds top spacing */
+    .mode-selector-container {
+        margin-top: 25px;
+    }
+
+    /* Force column responsiveness */
+    [data-testid="stHorizontalBlock"] {
+        flex-wrap: wrap !important;
+    }
+
+    /* Make second column height collapse when wrapped on mobile */
+    @media (max-width: 768px) {
+        [data-testid="column"]:nth-child(2) {
+            height: 0 !important;
+            overflow: hidden !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+    }
+    </style>
+
+    <div class="mode-selector-container"></div>
     """,
     unsafe_allow_html=True
 )
-mode = st.selectbox("Choose Mode", ["Calculate", "Learn"], index=0)
+
+col1, col2 = st.columns([1, 3])
+with col1:
+    mode = st.selectbox("Choose Mode", ["Calculate", "Learn"], index=0)
+
 st.markdown("---")
 
 # --- WARNING ---
