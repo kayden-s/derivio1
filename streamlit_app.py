@@ -44,11 +44,11 @@ st.markdown("""
 
 # --- HEADER ---
 st.markdown("""
-<div style="font-family:Arial; font-size:2.5rem; font-weight:700;">
-Derivio: Learn & Price Financial Options
+<div style="font-family:Arial; font-size:1.5rem; font-weight:700; margin-bottom:0;">
+Derivio
 </div>
-<div style="font-size:1.2rem; color:#555; margin-bottom:25px;">
-An interactive platform to understand and calculate option prices using real market data.
+<div style="font-family:Arial; font-size:2.7rem; font-weight:700; line-height:1.2; margin-bottom:25px;">
+Options Pricing Calculator
 </div>
 """, unsafe_allow_html=True)
 
