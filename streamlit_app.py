@@ -56,26 +56,21 @@ Learn & Price Financial Options
 st.markdown(
     """
     <style>
-    /* Adds top spacing */
     .mode-selector-container {
         margin-top: 25px;
     }
 
-    /* Allow columns to wrap on smaller screens */
+    /* Force wrapping when small */
     [data-testid="stHorizontalBlock"] {
         flex-wrap: wrap !important;
     }
 
-    /* Completely collapse the 2nd column when screen ≤ 640px */
+    /* Make columns full-width stacked on mobile */
     @media (max-width: 640px) {
-        [data-testid="column"]:nth-child(2),
-        [data-testid="column"]:nth-child(2) > div {
-            display: none !important;
-            height: 0 !important;
-            overflow: hidden !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            visibility: hidden !important;
+        [data-testid="column"] {
+            width: 100% !important;
+            flex: 1 1 100% !important;
+            display: block !important;
         }
     }
     </style>
