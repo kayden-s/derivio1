@@ -208,7 +208,8 @@ if mode == "Learn":
             color: #59A9F1;
             font-weight: 500;
             font-size: 16px;
-            margin-top: 10px;
+            line-height: 1.3;
+            margin-top: 20px;
             ">
             Select a pricing model from the sidebar to begin learning.
         </div>
