@@ -237,9 +237,11 @@ if mode == "Learn":
     st.write("Switch to Calculate Mode in the sidebar to apply these models to real market data.")
 
     # --- Go to Calculator Button ---
-if st.button("Go to Calculator Mode", type="primary"):
-    st.session_state["mode"] = "Calculate"
-    st.rerun()
+    go_to_calc = st.button("Go to Calculator Mode", type="primary")
+
+    if go_to_calc:
+        st.session_state["mode"] = "Calculate"
+        st.experimental_rerun()  # safe call
     
     # =====================
     # BLACK-SCHOLES MODEL
